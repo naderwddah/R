@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مطعم جُحى - المأكولات الشرقية الأصيلة</title>
+    <script src="./assets/js/tailwind.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#E63946", secondary: "#457B9D" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/remixicon.css" />
+    <style>
+      body {
+        font-family: "Tajawal", sans-serif;
+      }
+      .badge {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        min-width: 18px;
+        height: 18px;
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 pb-20 md:pb-8">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white shadow-md z-50">
+      <div class="flex items-center justify-between px-4 md:px-8 py-3">
+        <div class="w-10 h-10 flex items-center justify-center relative cursor-pointer" aria-label="سلة المشتريات" id="cartButton">
+          <i class="ri-shopping-cart-2-line ri-lg text-gray-700"></i>
+          <span class="badge bg-primary text-white rounded-full flex items-center justify-center" id="cartBadge">٠</span>
+        </div>
+        <div class="font-['Pacifico'] text-primary text-2xl md:text-3xl select-none">جُحى</div>
+        <div class="w-10 h-10 flex items-center justify-center cursor-pointer" aria-label="قائمة">
+          <i class="ri-menu-line ri-lg text-gray-700"></i>
+        </div>
+      </div>
+      <!-- Search Bar -->
+      <div class="px-4 md:px-8 py-2 border-t border-gray-100">
+        <div class="relative">
+          <input type="text" placeholder="ابحث عن طبقك المفضل..." class="w-full py-2 px-4 pr-10 bg-gray-100 rounded-button border-none text-sm focus:outline-none focus:ring-2 focus:ring-primary/20" id="searchInput" />
+          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 flex items-center justify-center">
+            <i class="ri-search-line text-gray-500"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content -->
+    <main class="pt-28 pb-4 md:pt-32 md:pb-8">
+      <!-- Hero Section -->
+      <section class="px-4 md:px-8 mb-6">
+        <div class="relative overflow-hidden rounded-lg shadow-md">
+          <div class="bg-cover bg-center min-h-[180px] h-[200px] sm:h-[260px] md:h-[340px] lg:h-[400px] rounded-lg" style="background-image: url('./assets/imges/home.jpg')">
+            <div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-white p-4">
+              <h1 class="text-2xl md:text-4xl font-bold mb-2 text-center">أهلاً بك في مطعم جُحى</h1>
+              <p class="text-sm md:text-lg mb-4 text-center">أشهى المأكولات الشرقية الأصيلة</p>
+              <a href="restaurant-menu.html" class="bg-primary text-white px-6 py-2 rounded-button font-medium shadow-lg hover:bg-primary/90 transition cursor-pointer">تصفح القائمة</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Categories Section -->
+      <section class="mb-8">
+        <div class="px-4 md:px-8 mb-3">
+          <h2 class="text-lg md:text-xl font-bold">تصفح الأقسام</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <div class="flex px-4 md:px-8 space-x-4 space-x-reverse" id="categoriesList">
+            <a href="restaurant-menu.html#grills" class="flex flex-col items-center w-16 cursor-pointer category-btn">
+              <div class="w-16 h-16 rounded-full overflow-hidden mb-1"><img src="./assets/imges/1.jpg" alt="مشاوي" class="w-full h-full object-cover" /></div>
+              <span class="text-xs text-center whitespace-nowrap overflow-hidden text-ellipsis">مشاوي</span>
+            </a>
+            <a href="restaurant-menu.html#appetizers" class="flex flex-col items-center w-16 cursor-pointer category-btn">
+              <div class="w-16 h-16 rounded-full overflow-hidden mb-1"><img src="./assets/imges/2.jpg" alt="مقبلات" class="w-full h-full object-cover" /></div>
+              <span class="text-xs text-center whitespace-nowrap overflow-hidden text-ellipsis">مقبلات</span>
+            </a>
+            <a href="restaurant-menu.html#sandwiches" class="flex flex-col items-center w-16 cursor-pointer category-btn">
+              <div class="w-16 h-16 rounded-full overflow-hidden mb-1"><img src="./assets/imges/3.jpg" alt="سندويشات" class="w-full h-full object-cover" /></div>
+              <span class="text-xs text-center whitespace-nowrap overflow-hidden text-ellipsis">سندويشات</span>
+            </a>
+            <a href="restaurant-menu.html#desserts" class="flex flex-col items-center w-16 cursor-pointer category-btn">
+              <div class="w-16 h-16 rounded-full overflow-hidden mb-1"><img src="./assets/imges/4.jpg" alt="حلويات" class="w-full h-full object-cover" /></div>
+              <span class="text-xs text-center whitespace-nowrap overflow-hidden text-ellipsis">حلويات</span>
+            </a>
+            <a href="restaurant-menu.html#drinks" class="flex flex-col items-center w-16 cursor-pointer category-btn">
+              <div class="w-16 h-16 rounded-full overflow-hidden mb-1"><img src="./assets/imges/5.jpg" alt="مشروبات" class="w-full h-full object-cover" /></div>
+              <span class="text-xs text-center whitespace-nowrap overflow-hidden text-ellipsis">مشروبات</span>
+            </a>
+            <a href="restaurant-menu.html#rice" class="flex flex-col items-center w-16 cursor-pointer category-btn">
+              <div class="w-16 h-16 rounded-full overflow-hidden mb-1"><img src="./assets/imges/6.jpg" alt="أرز" class="w-full h-full object-cover" /></div>
+              <span class="text-xs text-center whitespace-nowrap overflow-hidden text-ellipsis">أرز</span>
+            </a>
+          </div>
+        </div>
+      </section>
+      <!-- Featured Dishes / Menu Section -->
+      <section class="mb-8" id="menuSection">
+        <div class="px-4 md:px-8 mb-3 flex justify-between items-center">
+          <h2 class="text-lg md:text-xl font-bold">الأطباق المميزة</h2>
+          <a href="restaurant-menu.html" class="text-primary text-sm cursor-pointer">عرض الكل</a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 px-4 md:px-8" id="dishesGrid">
+          <!-- يتم ملء الأطباق تلقائيا من js/cart.js -->
+        </div>
+      </section>
+      <!-- Special Offers -->
+      <section class="mb-8">
+        <div class="px-4 md:px-8 mb-3">
+          <h2 class="text-lg md:text-xl font-bold">عروض خاصة</h2>
+        </div>
+        <div class="px-4 md:px-8">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="h-40 md:h-56 overflow-hidden relative">
+              <img src="./assets/imges/offer.jpg" alt="وجبة عائلية" class="w-full h-full object-cover object-top" />
+              <div class="absolute top-2 left-2 bg-primary text-white text-xs py-1 px-2 rounded-full">خصم ٢٠٪</div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-base md:text-lg mb-1">وجبة عائلية مميزة</h3>
+              <p class="text-gray-600 text-sm md:text-base mb-2">وجبة كاملة تكفي ٤ أشخاص تشمل مشاوي متنوعة، أرز، سلطات ومقبلات</p>
+              <div class="flex justify-between items-center">
+                <div>
+                  <span class="text-gray-500 text-xs line-through">٢٥٠ ر.س</span>
+                  <span class="text-primary font-bold mr-1">٢٠٠ ر.س</span>
+                </div>
+                <a href="restaurant-menu.html" class="bg-primary text-white px-4 py-1.5 text-sm rounded-button font-medium cursor-pointer">اطلب الآن</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Delivery Info -->
+      <section class="mb-8 px-4 md:px-8">
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h2 class="text-lg md:text-xl font-bold mb-3">معلومات التوصيل</h2>
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-3"><i class="ri-time-line text-primary"></i></div>
+            <div>
+              <h3 class="font-medium text-sm">وقت التوصيل</h3>
+              <p class="text-gray-600 text-xs">٣٠-٤٥ دقيقة</p>
+            </div>
+          </div>
+          <div class="flex items-center mb-3">
+            <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-3"><i class="ri-money-dollar-circle-line text-primary"></i></div>
+            <div>
+              <h3 class="font-medium text-sm">رسوم التوصيل</h3>
+              <p class="text-gray-600 text-xs">١٠ ر.س (مجاناً للطلبات فوق ١٠٠ ر.س)</p>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-3"><i class="ri-map-pin-line text-primary"></i></div>
+            <div>
+              <h3 class="font-medium text-sm">منطقة التغطية</h3>
+              <p class="text-gray-600 text-xs">جميع أحياء المدينة</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Customer Reviews -->
+      <section class="mb-8">
+        <div class="px-4 md:px-8 mb-3 flex justify-between items-center">
+          <h2 class="text-lg md:text-xl font-bold">آراء العملاء</h2>
+          <span class="text-primary text-sm cursor-pointer">عرض الكل</span>
+        </div>
+        <div class="overflow-x-auto">
+          <div class="flex px-4 md:px-8 space-x-4 space-x-reverse">
+            <div class="bg-white rounded-lg shadow-md p-4 min-w-[250px]">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden mr-3"><img src="./assets/imges/customer1.jpg" alt="أحمد محمد" class="w-full h-full object-cover" /></div>
+                <div>
+                  <h3 class="font-medium text-sm">أحمد محمد</h3>
+                  <div class="flex">
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm">أفضل مشاوي في المدينة! الطعم رائع والخدمة ممتازة. سأعود مرة أخرى بالتأكيد.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 min-w-[250px]">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden mr-3"><img src="./assets/imges/customer2.jpg" alt="سارة عبدالله" class="w-full h-full object-cover" /></div>
+                <div>
+                  <h3 class="font-medium text-sm">سارة عبدالله</h3>
+                  <div class="flex">
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-line text-yellow-400 text-xs"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm">الحمص والمتبل من أفضل ما تذوقت! التوصيل كان سريعاً والطعام وصل ساخناً.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 min-w-[250px]">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden mr-3"><img src="./assets/imges/customer3.jpg" alt="خالد العمري" class="w-full h-full object-cover" /></div>
+                <div>
+                  <h3 class="font-medium text-sm">خالد العمري</h3>
+                  <div class="flex">
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                    <i class="ri-star-half-line text-yellow-400 text-xs"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm">طلبنا وجبة عائلية وكانت أكثر من رائعة! الكمية وفيرة والطعم لا يُضاهى.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Working Hours -->
+      <section class="px-4 md:px-8 mb-8">
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h2 class="text-lg md:text-xl font-bold mb-3">ساعات العمل</h2>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-sm">السبت - الخميس</span>
+              <span class="text-sm">١٠:٠٠ ص - ١١:٠٠ م</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-sm">الجمعة</span>
+              <span class="text-sm">١:٠٠ م - ١١:٠٠ م</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Tab Bar -->
+    <nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-50 md:hidden">
+      <div class="grid grid-cols-4">
+        <div class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-home-5-line text-primary"></i></div>
+          <span class="text-xs mt-1 text-primary">الرئيسية</span>
+        </div>
+        <a href="restaurant-menu.html" class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-restaurant-line text-gray-500"></i></div>
+          <span class="text-xs mt-1 text-gray-500">القائمة</span>
+        </a>
+        <a href="orders.html" class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-shopping-bag-line text-gray-500"></i></div>
+          <span class="text-xs mt-1 text-gray-500">طلباتي</span>
+        </a>
+        <a href="profile.html" class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-user-line text-gray-500"></i></div>
+          <span class="text-xs mt-1 text-gray-500">حسابي</span>
+        </a>
+      </div>
+    </nav>
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black/50 z-[60] hidden">
+      <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl max-h-[80vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+          <h2 class="text-lg font-bold">سلة الطلبات</h2>
+          <div class="w-8 h-8 flex items-center justify-center cursor-pointer" id="closeCart" aria-label="إغلاق السلة">
+            <i class="ri-close-line ri-lg"></i>
+          </div>
+        </div>
+        <div class="p-4">
+          <div id="cartItems" class="space-y-4"></div>
+          <div id="cartSummary" class="mt-6 space-y-2 hidden">
+            <div class="flex justify-between text-sm">
+              <span>المجموع</span>
+              <span id="cartSubtotal">٠ ر.س</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span>رسوم التوصيل</span>
+              <span id="cartDelivery">١٠ ر.س</span>
+            </div>
+            <div class="flex justify-between font-bold pt-2 border-t">
+              <span>الإجمالي</span>
+              <span id="cartTotal">٠ ر.س</span>
+            </div>
+          </div>
+          <div class="mt-6">
+            <button id="checkoutBtn" class="w-full bg-primary text-white py-3 rounded-button font-medium cursor-pointer hidden">إتمام الطلب</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="notification" class="fixed top-16 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 hidden"></div>
+    <script src="./assets/js/cart.js"></script>
+    <script src="./assets/js/index-page.js"></script>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>طلباتي - مطعم جُحى</title>
+    <script src="./assets/js/tailwind.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#E63946", secondary: "#457B9D" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/remixicon.css" />
+    <style>
+      body {
+        font-family: "Tajawal", sans-serif;
+      }
+      .badge {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        min-width: 18px;
+        height: 18px;
+        font-size: 10px;
+      }
+      .order-status.processing { color: #e67e22; }
+      .order-status.completed { color: #27ae60; }
+      .order-status.canceled  { color: #e74c3c; }
+    </style>
+  </head>
+  <body class="bg-gray-50 pb-20">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white shadow-md z-50">
+      <div class="flex items-center justify-between px-4 py-3">
+        <a href="index.html" class="w-10 h-10 flex items-center justify-center"><i class="ri-arrow-right-s-line ri-lg text-gray-700"></i></a>
+        <div class="text-lg font-bold">طلباتي</div>
+        <div class="w-10 h-10 flex items-center justify-center relative cursor-pointer" id="cartButton">
+          <i class="ri-shopping-cart-2-line ri-lg text-gray-700"></i>
+          <span class="badge bg-primary text-white rounded-full flex items-center justify-center" id="cartBadge">٠</span>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content -->
+    <main class="pt-24 pb-8 px-4">
+      <h2 class="text-xl font-bold mb-4 text-primary">سجل الطلبات</h2>
+      <div id="ordersList" class="space-y-6">
+        <!-- سيتم تعبئة الطلبات هنا عبر جافاسكريبت -->
+      </div>
+      <div id="ordersEmpty" class="hidden text-center text-gray-400 mt-16">
+        <div class="flex justify-center mb-4"><i class="ri-inbox-2-line ri-4x"></i></div>
+        <div class="text-lg font-bold mb-2">لا توجد طلبات سابقة</div>
+        <div class="text-sm mb-4">ابدأ بطلب وجبتك المفضلة الآن!</div>
+        <a href="restaurant-menu.html" class="bg-primary text-white px-6 py-2 rounded-button font-medium shadow hover:bg-primary/90 transition">تصفح القائمة</a>
+      </div>
+    </main>
+    <!-- Tab Bar -->
+    <nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-50 md:hidden">
+      <div class="grid grid-cols-4">
+        <a href="index.html" class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-home-5-line text-gray-500"></i></div>
+          <span class="text-xs mt-1 text-gray-500">الرئيسية</span>
+        </a>
+        <a href="restaurant-menu.html" class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-restaurant-line text-gray-500"></i></div>
+          <span class="text-xs mt-1 text-gray-500">القائمة</span>
+        </a>
+        <div class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-shopping-bag-line text-primary"></i></div>
+          <span class="text-xs mt-1 text-primary">طلباتي</span>
+        </div>
+        <div class="flex flex-col items-center py-2 cursor-pointer">
+          <div class="w-6 h-6 flex items-center justify-center"><i class="ri-user-line text-gray-500"></i></div>
+          <span class="text-xs mt-1 text-gray-500">حسابي</span>
+        </div>
+      </div>
+    </nav>
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black/50 z-[60] hidden">
+      <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl max-h-[80vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+          <h2 class="text-lg font-bold">سلة الطلبات</h2>
+          <div class="w-8 h-8 flex items-center justify-center cursor-pointer" id="closeCart" aria-label="إغلاق السلة">
+            <i class="ri-close-line ri-lg"></i>
+          </div>
+        </div>
+        <div class="p-4">
+          <div id="cartItems" class="space-y-4"></div>
+          <div id="cartSummary" class="mt-6 space-y-2 hidden">
+            <div class="flex justify-between text-sm">
+              <span>المجموع</span>
+              <span id="cartSubtotal">٠ ر.س</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span>رسوم التوصيل</span>
+              <span id="cartDelivery">١٠ ر.س</span>
+            </div>
+            <div class="flex justify-between font-bold pt-2 border-t">
+              <span>الإجمالي</span>
+              <span id="cartTotal">٠ ر.س</span>
+            </div>
+          </div>
+          <div class="mt-6">
+            <button id="checkoutBtn" class="w-full bg-primary text-white py-3 rounded-button font-medium cursor-pointer hidden">إتمام الطلب</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="notification" class="fixed top-16 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 hidden"></div>
+    <script src="./assets/js/cart.js"></script>
+    <script>
+    // مثال لطلبات وهمية/أو استرجاع من localStorage: يمكن ربطها مع back-end لاحقاً
+    function toArabicDigits(num) {
+      const arabic = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
+      return num.toString().replace(/[0-9]/g, d => arabic[d]);
+    }
+    // جلب الطلبات من التخزين المحلي أو بيانات وهمية
+    function getOrders() {
+      // مثال: يمكنك استبدالها بربط API لاحقاً
+      return JSON.parse(localStorage.getItem("orders") || "[]");
+    }
+    function renderOrders() {
+      const orders = getOrders();
+      const ordersList = document.getElementById("ordersList");
+      const ordersEmpty = document.getElementById("ordersEmpty");
+      if (!orders || orders.length === 0) {
+        ordersList.classList.add("hidden");
+        ordersEmpty.classList.remove("hidden");
+        return;
+      }
+      ordersList.classList.remove("hidden");
+      ordersEmpty.classList.add("hidden");
+      ordersList.innerHTML = "";
+      orders.reverse().forEach(order => {
+        const orderDate = new Date(order.date);
+        const day = toArabicDigits(orderDate.getDate());
+        const month = toArabicDigits(orderDate.getMonth() + 1);
+        const year = toArabicDigits(orderDate.getFullYear());
+        const hour = toArabicDigits(orderDate.getHours());
+        const min = toArabicDigits(orderDate.getMinutes()).padStart(2, "٠");
+        let statusColor = "order-status processing";
+        let statusText = "قيد المعالجة";
+        if(order.status === "completed") { statusColor="order-status completed"; statusText="تم التوصيل"; }
+        if(order.status === "canceled")  { statusColor="order-status canceled";  statusText="ملغي"; }
+        let itemsHtml = order.items.map(item => `
+          <div class="flex items-center gap-3 mb-2">
+            <img src="${item.img}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover border" />
+            <div class="flex-1">
+              <div class="font-bold text-sm">${item.name}</div>
+              <div class="text-xs text-gray-600">الكمية: ${toArabicDigits(item.qty)} · السعر: ${toArabicDigits(item.price)} ر.س</div>
+            </div>
+          </div>
+        `).join('');
+        ordersList.innerHTML += `
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <div class="flex justify-between items-center mb-2">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-primary">طلب رقم ${toArabicDigits(order.id)}</span>
+              <span class="${statusColor} text-xs font-bold ml-2">${statusText}</span>
+            </div>
+            <span class="text-xs text-gray-500">${year}/${month}/${day} - ${hour}:${min}</span>
+          </div>
+          <div>${itemsHtml}</div>
+          <div class="flex justify-between items-center mt-4 border-t pt-3">
+            <span class="font-bold text-sm">الإجمالي: <span class="text-primary">${toArabicDigits(order.total)} ر.س</span></span>
+            ${order.status === "processing" ? `<button class="text-xs text-red-500 rounded px-3 py-1 border border-red-100 hover:bg-red-50 transition" onclick="cancelOrder(${order.id})">إلغاء الطلب</button>` : ""}
+          </div>
+        </div>
+        `;
+      });
+    }
+    // مثال: إلغاء الطلب (تغيير الحالة في LocalStorage)
+    function cancelOrder(id) {
+      let orders = getOrders();
+      orders = orders.map(order => order.id === id ? {...order, status: "canceled"} : order);
+      localStorage.setItem("orders", JSON.stringify(orders));
+      renderOrders();
+    }
+    // إنشاء طلب وهمي عند أول زيارة (للتجربة)
+    document.addEventListener("DOMContentLoaded", function () {
+      if(!localStorage.getItem("orders")) {
+        localStorage.setItem("orders", JSON.stringify([
+          {
+            id: 1234,
+            date: new Date(Date.now() - 3600 * 1000 * 10).toISOString(),
+            status: "completed",
+            total: 140,
+            items: [
+              { name: "مشاوي مشكلة", qty: 1, price: 75, img: "./assets/imges/f1.jpg" },
+              { name: "حمص بالطحينة", qty: 2, price: 25, img: "./assets/imges/f2.jpg" },
+              { name: "عصير فراولة", qty: 1, price: 15, img: "./assets/imges/2.jpg" }
+            ]
+          },
+          {
+            id: 1235,
+            date: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
+            status: "processing",
+            total: 55,
+            items: [
+              { name: "كنافة نابلسية", qty: 1, price: 30, img: "./assets/imges/f3.jpg" },
+              { name: "ساندويش فلافل", qty: 1, price: 15, img: "./assets/imges/f4.jpg" },
+              { name: "ليموناضة بالنعناع", qty: 1, price: 10, img: "./assets/imges/5.jpg" }
+            ]
+          }
+        ]));
+      }
+      renderOrders();
+    });
+    </script>
+  </body>
+</html>
