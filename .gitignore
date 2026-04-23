@@ -1,0 +1,11 @@
+# Ignore the specific OKComputer evaluation interface folder and its zip
+OKComputer_واجهة تقييم هيئة التدريس/
+OKComputer_واجهة تقييم هيئة التدريس.zip
+
+# Optional: common ignores for many projects
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+.vscode/
+.idea/
