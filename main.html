@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تقييم الأداء الأكاديمي - صوت الجامعة</title>
+    
+    <!-- استدعاء Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- استدعاء خط Cairo لدعم اللغة العربية بشكل جميل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- مكتبة Chart.js للرسوم البيانية -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .hidden-section {
+            display: none;
+        }
+        .active-link {
+            background-color: #1e40af; /* blue-800 */
+            border-right: 4px solid #60a5fa; /* blue-400 */
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // أزرق غامق
+                        secondary: '#1d4ed8', // أزرق متوسط
+                        accent: '#f59e0b', // برتقالي
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-gray-800">
+
+    <!-- ================= قسم تسجيل الدخول ================= -->
+    <div id="login-view" class="min-h-screen flex items-center justify-center bg-gray-100">
+        <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border-t-4 border-primary">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+                    <i class="fas fa-university text-3xl text-primary"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">نظام التقييم الأكاديمي</h2>
+                <p class="text-gray-500 text-sm">بوابة الدخول الموحدة</p>
+            </div>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">الرقم الأكاديمي / الوظيفي</label>
+                    <input type="text" id="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" placeholder="ادخل admin أو student">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">كلمة المرور</label>
+                    <input type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" placeholder="*****">
+                    <p id="login-error" class="text-red-500 text-xs italic hidden">بيانات الدخول غير صحيحة.</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="bg-primary hover:bg-blue-800 text-white font-bold py-2 px-4 rounded w-full transition duration-300" type="submit">
+                        دخول
+                    </button>
+                </div>
+                <div class="mt-4 text-center">
+                    <a href="#" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                        نسيت كلمة المرور؟
+                    </a>
+                </div>
+            </form>
+            <div class="mt-6 text-center text-xs text-gray-400">
+                <p>جرب الدخول بـ: admin / 123 أو student / 123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= لوحة التحكم الرئيسية (بعد الدخول) ================= -->
+    <div id="app-layout" class="hidden-section min-h-screen flex">
+        
+        <!-- الشريط الجانبي -->
+        <aside class="w-64 bg-primary text-white flex flex-col shadow-xl transition-all duration-300" id="sidebar">
+            <div class="h-16 flex items-center justify-center border-b border-blue-800">
+                <h1 class="text-xl font-bold"><i class="fas fa-graduation-cap ml-2"></i>بوابة الجامعة</h1>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto py-4">
+                <ul class="space-y-1" id="nav-links">
+                    <!-- الروابط سيتم توليدها بالجافاسكريبت بناءً على الصلاحية -->
+                </ul>
+            </nav>
+            
+            <div class="p-4 border-t border-blue-800 text-center text-xs text-blue-200">
+                &copy; 2025 جميع الحقوق محفوظة
+            </div>
+        </aside>
+
+        <!-- المحتوى الرئيسي -->
+        <main class="flex-1 flex flex-col bg-gray-50">
+            <!-- الشريط العلوي -->
+            <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6">
+                <button onclick="toggleSidebar()" class="text-gray-600 focus:outline-none lg:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                
+                <h2 id="page-title" class="text-xl font-bold text-gray-800">لوحة القيادة</h2>
+                
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="relative">
+                        <i class="fas fa-bell text-gray-500 cursor-pointer hover:text-primary"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                    </div>
+                    <div class="flex items-center space-x-2 space-x-reverse cursor-pointer" onclick="logout()">
+                        <img src="https://ui-avatars.com/api/?name=User&background=random" id="user-avatar" class="h-8 w-8 rounded-full" alt="Avatar">
+                        <span id="user-name" class="text-sm font-semibold text-gray-700 hidden md:block">المستخدم</span>
+                        <i class="fas fa-sign-out-alt text-red-500 hover:text-red-700"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- منطقة المحتوى المتغير -->
+            <div id="content-area" class="p-6 overflow-y-auto flex-1">
+                <!-- المحتوى سيظهر هنا ديناميكياً -->
+            </div>
+        </main>
+    </div>
+
+    <!-- مودال التقييم (Pop-up) -->
+    <div id="survey-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b">
+                <h3 class="text-xl font-bold text-primary" id="modal-course-title">تقييم مقرر</h3>
+                <p class="text-sm text-gray-500">رأيك يساهم في تطوير العملية التعليمية - سري للغاية</p>
+            </div>
+            <div class="p-6" id="survey-questions-container">
+                <!-- الأسئلة ستولد هنا -->
+            </div>
+            <div class="p-6 border-t bg-gray-50 flex justify-end space-x-3 space-x-reverse">
+                <button onclick="closeModal()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">إلغاء</button>
+                <button onclick="submitSurvey()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">إرسال التقييم</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript Logic -->
+    <script>
+        // ================== 1. Mock Data (قاعدة بيانات وهمية) ==================
+        const db = {
+            users: [
+                { id: 'admin', name: 'أ. عبدالله المدير', role: 'admin', password: '123' },
+                { id: 'student', name: 'سامي الطالب', role: 'student', password: '123', department: 'علوم حاسب', level: 4 }
+            ],
+            courses: [
+                { id: 101, code: 'CS101', name: 'مقدمة في البرمجة', prof: 'د. أحمد سعيد', dept: 'علوم حاسب' },
+                { id: 102, code: 'MATH202', name: 'رياضيات متقطعة', prof: 'د. محمد علي', dept: 'علوم حاسب' },
+                { id: 103, code: 'NET300', name: 'شبكات حاسوب', prof: 'د. سارة حسن', dept: 'شبكات' },
+            ],
+            studentEnrollments: [
+                // الطالب سامي مسجل في هذه المواد
+                { studentId: 'student', courseId: 101, evaluated: false },
+                { studentId: 'student', courseId: 102, evaluated: false },
+            ],
+            surveyTemplates: [
+                { id: 1, title: 'تقييم عضو هيئة التدريس - نظري', questions: [
+                    'هل يلتزم المحاضر بمواعيد المحاضرة؟',
+                    'هل المادة العلمية واضحة ومفهومة؟',
+                    'هل يستخدم المحاضر وسائل شرح حديثة؟',
+                    'كيف تقيم تعامل المحاضر مع الطلاب؟'
+                ]}
+            ],
+            responses: [
+                // بيانات وهمية لتقارير سابقة
+                { courseId: 101, scores: [5, 4, 5, 4] }, 
+                { courseId: 101, scores: [4, 3, 4, 5] },
+                { courseId: 102, scores: [2, 3, 2, 2] }, // تقييم منخفض للتجربة
+            ]
+        };
+
+        let currentUser = null;
+
+        // ================== 2. Auth Functions ==================
+        function handleLogin(e) {
+            e.preventDefault();
+            const userIn = document.getElementById('username').value;
+            const passIn = document.getElementById('password').value;
+
+            const user = db.users.find(u => u.id === userIn && u.password === passIn);
+
+            if (user) {
+                currentUser = user;
+                document.getElementById('login-view').classList.add('hidden');
+                document.getElementById('app-layout').classList.remove('hidden-section');
+                document.getElementById('user-name').textContent = user.name;
+                document.getElementById('user-avatar').src = `https://ui-avatars.com/api/?name=${user.name}&background=0D8ABC&color=fff`;
+                
+                setupSidebar();
+                
+                // توجيه حسب الدور
+                if(user.role === 'admin') navigateTo('dashboard');
+                else navigateTo('my-courses');
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            location.reload(); // أسهل طريقة لتسجيل الخروج في النموذج الأولي
+        }
+
+        // ================== 3. Navigation & UI ==================
+        function setupSidebar() {
+            const nav = document.getElementById('nav-links');
+            nav.innerHTML = '';
+
+            if (currentUser.role === 'admin') {
+                nav.innerHTML += `
+                    <li onclick="navigateTo('dashboard')" class="cursor-pointer p-3 hover:bg-blue-700 flex items-center"><i class="fas fa-tachometer-alt w-8"></i> لوحة البيانات</li>
+                    <li onclick="navigateTo('settings')" class="cursor-pointer p-3 hover:bg-blue-700 flex items-center"><i class="fas fa-cogs w-8"></i> إعدادات الجامعة</li>
+                    <li onclick="navigateTo('surveys')" class="cursor-pointer p-3 hover:bg-blue-700 flex items-center"><i class="fas fa-clipboard-list w-8"></i> إدارة الاستبيانات</li>
+                    <li onclick="navigateTo('reports')" class="cursor-pointer p-3 hover:bg-blue-700 flex items-center"><i class="fas fa-chart-bar w-8"></i> التقارير والنتائج</li>
+                    <li onclick="navigateTo('users')" class="cursor-pointer p-3 hover:bg-blue-700 flex items-center"><i class="fas fa-users w-8"></i> المستخدمين</li>
+                `;
+            } else {
+                nav.innerHTML += `
+                    <li onclick="navigateTo('my-courses')" class="cursor-pointer p-3 hover:bg-blue-700 flex items-center"><i class="fas fa-book w-8"></i> مقرراتي الدراسية</li>
+                    <li onclick="navigateTo('history')" class="cursor-pointer p-3 hover:bg-blue-700 flex items-center"><i class="fas fa-history w-8"></i> سجل التقييم</li>
+                `;
+            }
+        }
+
+        function navigateTo(page) {
+            // Update Active State in Sidebar
+            document.querySelectorAll('li').forEach(li => li.classList.remove('active-link'));
+            event.currentTarget && event.currentTarget.classList.add('active-link');
+
+            const content = document.getElementById('content-area');
+            const title = document.getElementById('page-title');
+
+            if (page === 'dashboard') {
+                title.textContent = 'لوحة البيانات العامة';
+                renderDashboard(content);
+            } else if (page === 'my-courses') {
+                title.textContent = 'مقرراتي الدراسية - الفصل الحالي';
+                renderMyCourses(content);
+            } else if (page === 'surveys') {
+                title.textContent = 'إعداد نماذج الاستبيانات';
+                renderSurveysAdmin(content);
+            } else if (page === 'reports') {
+                title.textContent = 'تقارير الأداء الأكاديمي';
+                renderReports(content);
+            } else if (page === 'settings') {
+                title.textContent = 'إعدادات الجامعة';
+                content.innerHTML = '<div class="bg-white p-6 rounded shadow text-center"><i class="fas fa-tools text-4xl text-gray-300 mb-4"></i><p>صفحة إعدادات الأقسام والمواد (تجريبية)</p></div>';
+            } else {
+                content.innerHTML = `<p>جاري العمل على صفحة ${page}...</p>`;
+            }
+        }
+
+        // ================== 4. Page Renders (Admin) ==================
+        function renderDashboard(container) {
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white p-4 rounded-lg shadow border-r-4 border-blue-500">
+                        <div class="text-gray-500 text-sm">عدد الطلاب النشطين</div>
+                        <div class="text-2xl font-bold">1,240</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border-r-4 border-green-500">
+                        <div class="text-gray-500 text-sm">المقررات المطروحة</div>
+                        <div class="text-2xl font-bold">${db.courses.length}</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border-r-4 border-yellow-500">
+                        <div class="text-gray-500 text-sm">نسبة المشاركة</div>
+                        <div class="text-2xl font-bold">68%</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border-r-4 border-red-500">
+                        <div class="text-gray-500 text-sm">استبيانات قيد الانتظار</div>
+                        <div class="text-2xl font-bold">12</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="font-bold mb-4 text-gray-700">معدل التقييم حسب الكلية</h3>
+                        <canvas id="chart1"></canvas>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="font-bold mb-4 text-gray-700">الأعلى تقييماً (أعضاء هيئة التدريس)</h3>
+                        <ul class="divide-y">
+                            <li class="py-3 flex justify-between"><span>د. أحمد سعيد</span> <span class="text-green-600 font-bold">4.8/5</span></li>
+                            <li class="py-3 flex justify-between"><span>د. سارة حسن</span> <span class="text-green-600 font-bold">4.7/5</span></li>
+                            <li class="py-3 flex justify-between"><span>د. يوسف محمود</span> <span class="text-green-600 font-bold">4.5/5</span></li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            // Draw Chart
+            setTimeout(() => {
+                const ctx = document.getElementById('chart1').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['الهندسة', 'الحاسب', 'العلوم', 'الآداب'],
+                        datasets: [{
+                            label: 'متوسط التقييم',
+                            data: [4.2, 4.5, 3.8, 4.0],
+                            backgroundColor: '#3b82f6'
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+            }, 100);
+        }
+
+        function renderSurveysAdmin(container) {
+            const templates = db.surveyTemplates.map(t => `
+                <div class="bg-white border rounded-lg p-4 flex justify-between items-center hover:shadow-md transition">
+                    <div>
+                        <h4 class="font-bold text-primary">${t.title}</h4>
+                        <p class="text-sm text-gray-500">عدد الأسئلة: ${t.questions.length}</p>
+                    </div>
+                    <div class="space-x-2 space-x-reverse">
+                        <button class="text-blue-600 hover:text-blue-800"><i class="fas fa-edit"></i> تعديل</button>
+                        <button class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="flex justify-between mb-6">
+                    <h3 class="text-lg font-bold">قوالب الاستبيانات الحالية</h3>
+                    <button class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700">
+                        <i class="fas fa-plus ml-2"></i> إضافة قالب جديد
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    ${templates}
+                </div>
+            `;
+        }
+
+        function renderReports(container) {
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded shadow mb-6">
+                    <h3 class="font-bold mb-4">فلترة النتائج</h3>
+                    <div class="flex gap-4">
+                        <select class="border p-2 rounded w-1/3 bg-gray-50">
+                            <option>اختر الكلية...</option>
+                            <option>الحاسب</option>
+                        </select>
+                        <select class="border p-2 rounded w-1/3 bg-gray-50">
+                            <option>اختر القسم...</option>
+                            <option>علوم حاسب</option>
+                        </select>
+                        <button class="bg-primary text-white px-6 rounded">عرض</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded shadow overflow-hidden">
+                    <table class="min-w-full leading-normal">
+                        <thead>
+                            <tr>
+                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">اسم الدكتور</th>
+                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">المقرر</th>
+                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">عدد المقيمين</th>
+                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">التقييم العام</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">د. أحمد سعيد</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">مقدمة برمجة</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">45</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><span class="bg-green-200 text-green-900 py-1 px-3 rounded-full text-xs">ممتاز (4.8)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">د. محمد علي</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">رياضيات</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">30</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><span class="bg-yellow-200 text-yellow-900 py-1 px-3 rounded-full text-xs">متوسط (3.2)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // ================== 5. Page Renders (Student) ==================
+        function renderMyCourses(container) {
+            const myEnrollments = db.studentEnrollments.filter(e => e.studentId === currentUser.id);
+            
+            if (myEnrollments.length === 0) {
+                container.innerHTML = '<p>لا توجد مقررات مسجلة.</p>';
+                return;
+            }
+
+            let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-6">';
+            
+            myEnrollments.forEach(enroll => {
+                const course = db.courses.find(c => c.id === enroll.courseId);
+                const statusBtn = enroll.evaluated 
+                    ? `<button disabled class="w-full bg-gray-300 text-gray-600 py-2 rounded cursor-not-allowed"><i class="fas fa-check"></i> تم التقييم</button>`
+                    : `<button onclick="openSurvey(${course.id})" class="w-full bg-secondary hover:bg-primary text-white py-2 rounded shadow transition transform hover:-translate-y-1">ابدأ التقييم</button>`;
+
+                html += `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 ${enroll.evaluated ? 'border-gray-400' : 'border-accent'}">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded">${course.code}</span>
+                                    <h3 class="text-xl font-bold text-gray-800 mt-2">${course.name}</h3>
+                                    <p class="text-gray-600 text-sm mt-1"><i class="fas fa-chalkboard-teacher ml-1"></i> ${course.prof}</p>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                ${statusBtn}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // ================== 6. Survey Logic ==================
+        let currentCourseIdToEvaluate = null;
+
+        function openSurvey(courseId) {
+            const course = db.courses.find(c => c.id === courseId);
+            currentCourseIdToEvaluate = courseId;
+            
+            document.getElementById('modal-course-title').textContent = `تقييم مقرر: ${course.name} - ${course.prof}`;
+            const container = document.getElementById('survey-questions-container');
+            
+            // Load questions from template (Assuming template ID 1 for demo)
+            const questions = db.surveyTemplates[0].questions;
+            
+            let qHtml = '';
+            questions.forEach((q, index) => {
+                qHtml += `
+                    <div class="mb-6">
+                        <p class="font-semibold mb-3 text-gray-800">${index + 1}. ${q}</p>
+                        <div class="flex space-x-4 space-x-reverse justify-between bg-gray-50 p-3 rounded">
+                            <label class="flex flex-col items-center cursor-pointer"><input type="radio" name="q${index}" value="5" class="mb-1"><span class="text-xs">ممتاز</span></label>
+                            <label class="flex flex-col items-center cursor-pointer"><input type="radio" name="q${index}" value="4" class="mb-1"><span class="text-xs">جيد جداً</span></label>
+                            <label class="flex flex-col items-center cursor-pointer"><input type="radio" name="q${index}" value="3" class="mb-1"><span class="text-xs">جيد</span></label>
+                            <label class="flex flex-col items-center cursor-pointer"><input type="radio" name="q${index}" value="2" class="mb-1"><span class="text-xs">مقبول</span></label>
+                            <label class="flex flex-col items-center cursor-pointer"><input type="radio" name="q${index}" value="1" class="mb-1"><span class="text-xs">ضعيف</span></label>
+                        </div>
+                    </div>
+                `;
+            });
+            // Add Open Text
+            qHtml += `
+                <div class="mb-4">
+                    <p class="font-semibold mb-2">ملاحظات إضافية (اختياري)</p>
+                    <textarea class="w-full border rounded p-2" rows="3" placeholder="اكتب رأيك هنا بكل حرية..."></textarea>
+                </div>
+            `;
+
+            container.innerHTML = qHtml;
+            document.getElementById('survey-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('survey-modal').classList.add('hidden');
+        }
+
+        function submitSurvey() {
+            // 1. Save 'Response' (Anonymous)
+            db.responses.push({
+                courseId: currentCourseIdToEvaluate,
+                timestamp: new Date(),
+                scores: [5, 4, 5, 4] // Mocked scores for demo
+            });
+
+            // 2. Mark 'User Enrollment' as evaluated (Tracking)
+            const enrollment = db.studentEnrollments.find(e => e.studentId === currentUser.id && e.courseId === currentCourseIdToEvaluate);
+            if (enrollment) {
+                enrollment.evaluated = true;
+            }
+
+            closeModal();
+            alert('تم إرسال تقييمك بنجاح! شكراً لمشاركتك.');
+            
+            // Refresh View
+            renderMyCourses(document.getElementById('content-area'));
+        }
+        
+        // مساعدة لتغيير الشريط الجانبي في الموبايل
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('absolute');
+            sidebar.classList.toggle('z-50');
+            sidebar.classList.toggle('h-full');
+        }
+
+    </script>
+</body>
+</html>
