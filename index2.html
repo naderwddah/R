@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ليالي أبهى | مأكولات شرقية أصيلة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Tajawal:wght@300;400;500;700;800;900&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#C0392B',
+                        'primary-light': '#E74C3C',
+                        'primary-dark': '#922B21',
+                        secondary: '#D4A574',
+                        'secondary-light': '#E8C9A0',
+                        'secondary-dark': '#B08D5F',
+                        accent: '#2D5A4A',
+                        'accent-light': '#3D7A64',
+                        surface: '#FFFFFF',
+                        'surface-dark': '#1E1E1E',
+                        background: '#FDF8F3',
+                        'background-dark': '#121212',
+                        muted: '#8D7B68',
+                        'muted-dark': '#A89F91',
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                        pacifico: ['Pacifico', 'cursive'],
+                        reem: ['Reem Kufi', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'xl': '16px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.4s ease-out forwards',
+                        'slide-in-left': 'slideInLeft 0.4s ease-out forwards',
+                        'slide-up': 'slideUp 0.4s ease-out forwards',
+                        'bounce-soft': 'bounceSoft 2s infinite',
+                        'shimmer': 'shimmer 1.5s infinite',
+                        'pulse-soft': 'pulseSoft 2s infinite',
+                        'scale-in': 'scaleIn 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideInRight: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        slideInLeft: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100%)' },
+                            '100%': { transform: 'translateY(0)' },
+                        },
+                        bounceSoft: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        pulseSoft: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.7' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        * { scroll-behavior: smooth; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #FDF8F3;
+            overflow-x: hidden;
+        }
+        body.dark { background-color: #121212; color: #e5e5e5; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #D4A574; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B08D5F; }
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.8s;
+        }
+        .ripple:active::after {
+            transform: scale(0, 0);
+            opacity: 0.3;
+            transition: 0s;
+        }
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .dark .shimmer {
+            background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+            background-size: 200% 100%;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(30, 30, 30, 0.85);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(45,90,74,0.85) 0%, rgba(192,57,43,0.75) 50%, rgba(0,0,0,0.6) 100%);
+        }
+        .dish-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dish-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .dish-card:hover .dish-img {
+            transform: scale(1.08);
+        }
+        .dish-img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .category-pill.active {
+            background: linear-gradient(135deg, #C0392B, #E74C3C);
+            color: white;
+            box-shadow: 0 4px 15px rgba(192,57,43,0.3);
+        }
+        .cart-drawer {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cart-drawer.open {
+            transform: translateX(0);
+        }
+        .toast {
+            transform: translateX(-50%) translateY(-100px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        #progressBar {
+            width: 0%;
+            transition: width 0.1s;
+        }
+        #backToTop {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .reviews-track {
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .review-card {
+            scroll-snap-align: start;
+        }
+        .countdown-digit {
+            background: linear-gradient(135deg, #C0392B, #922B21);
+            box-shadow: 0 4px 10px rgba(192,57,43,0.3);
+        }
+        .tab-item.active {
+            color: #C0392B;
+        }
+        .tab-item.active .tab-icon {
+            background: linear-gradient(135deg, #C0392B, #E74C3C);
+            color: white;
+            box-shadow: 0 4px 12px rgba(192,57,43,0.3);
+        }
+        .dark-toggle {
+            transition: all 0.3s;
+        }
+        .dark-toggle:hover {
+            transform: rotate(20deg);
+        }
+        .search-suggestions {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .search-suggestions.open {
+            max-height: 300px;
+        }
+        .offer-badge {
+            background: linear-gradient(135deg, #C0392B, #E74C3C);
+            box-shadow: 0 4px 15px rgba(192,57,43,0.4);
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .qty-btn {
+            transition: all 0.2s;
+        }
+        .qty-btn:active {
+            transform: scale(0.9);
+        }
+        @keyframes badgePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        .badge-pop {
+            animation: badgePop 0.3s ease-out;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #C0392B, #D4A574);
+            border-radius: 2px;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="font-tajawal bg-background dark:bg-background-dark text-gray-800 dark:text-gray-100 pb-20 md:pb-0 transition-colors duration-300">
+
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-[70]">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-primary via-secondary to-accent"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="mainHeader" class="fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="bg-white/95 dark:bg-surface-dark/95 backdrop-blur-md shadow-sm transition-all duration-300" id="headerInner">
+            <div class="flex items-center justify-between px-4 md:px-8 py-3 max-w-7xl mx-auto">
+                <button id="cartButton" class="relative w-11 h-11 flex items-center justify-center rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition ripple" aria-label="سلة المشتريات">
+                    <i class="ri-shopping-bag-3-line text-xl text-gray-700 dark:text-gray-300"></i>
+                    <span id="cartBadge" class="absolute -top-1 -right-1 min-w-[20px] h-5 bg-primary text-white text-xs font-bold rounded-full flex items-center justify-center px-1 shadow-lg">٠</span>
+                </button>
+                <div class="flex flex-col items-center">
+                    <div class="font-pacifico text-primary text-2xl md:text-3xl select-none tracking-wide">ليالي أبهى</div>
+                    <div class="text-[10px] text-muted dark:text-muted-dark tracking-[0.2em] uppercase -mt-1">مأكولات شرقية</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="darkModeToggle" class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition dark-toggle" aria-label="تبديل الوضع الداكن">
+                        <i class="ri-moon-line text-lg text-gray-700 dark:text-gray-300 dark:hidden"></i>
+                        <i class="ri-sun-line text-lg text-yellow-400 hidden dark:block"></i>
+                    </button>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition md:hidden ripple" aria-label="القائمة">
+                        <i class="ri-menu-4-line text-xl text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                    <nav class="hidden md:flex items-center gap-1">
+                        <a href="#hero" class="px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary/10 text-primary transition">الرئيسية</a>
+                        <a href="#menuSection" class="px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition">القائمة</a>
+                        <a href="#offers" class="px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition">العروض</a>
+                        <a href="#reviews" class="px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition">الآراء</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="px-4 md:px-8 py-3 border-t border-gray-100 dark:border-gray-800 max-w-7xl mx-auto">
+                <div class="relative max-w-2xl mx-auto">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="ابحث عن طبقك المفضل..." class="w-full py-3 px-5 pr-12 bg-gray-100 dark:bg-gray-800 rounded-2xl border-2 border-transparent text-sm focus:outline-none focus:border-primary/30 focus:bg-white dark:focus:bg-gray-700 transition-all shadow-inner" autocomplete="off">
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            <i class="ri-search-2-line text-lg"></i>
+                        </div>
+                        <button id="clearSearch" class="absolute left-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-600 text-gray-500 hidden hover:bg-gray-300 transition">
+                            <i class="ri-close-line text-sm"></i>
+                        </button>
+                    </div>
+                    <div id="searchSuggestions" class="search-suggestions absolute top-full left-0 right-0 mt-2 bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 z-50 overflow-hidden">
+                        <div id="suggestionsList" class="py-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-36 md:pt-40">
+
+        <!-- Hero Section -->
+        <section id="hero" class="px-4 md:px-8 mb-10">
+            <div class="relative overflow-hidden rounded-3xl shadow-2xl max-w-7xl mx-auto">
+                <div class="relative min-h-[400px] sm:min-h-[480px] md:min-h-[560px] lg:min-h-[620px]">
+                    <div class="absolute inset-0">
+                        <img src="./assets/imges/food/home.jpg" alt="ليالي أبهى" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&h=800&fit=crop'">
+                        <div class="absolute inset-0 hero-gradient"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="relative h-full flex flex-col items-center justify-center text-white p-6 md:p-12 text-center">
+                        <div class="animate-fade-in-up">
+                            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6 border border-white/30">
+                                <i class="ri-restaurant-2-line text-secondary-light"></i>
+                                <span class="text-sm font-medium">مأكولات شرقية أصيلة</span>
+                            </div>
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight animate-fade-in-up delay-100 font-reem">
+                            أهلاً بك في <span class="text-secondary-light">ليالي أبهى</span>
+                        </h1>
+                        <p class="text-base md:text-xl mb-8 max-w-xl text-white/90 animate-fade-in-up delay-200 leading-relaxed">
+                            تجربة طعام فاخرة تجمع بين الأصالة الشرقية واللمسة العصرية، حيث النكهات الأصيلة تروي قصة كل طبق
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300">
+                            <a href="#menuSection" class="group bg-white text-primary px-8 py-3.5 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ripple flex items-center gap-2">
+                                <i class="ri-restaurant-line group-hover:rotate-12 transition"></i>
+                                تصفح القائمة
+                            </a>
+                            <button onclick="scrollToQuickOrder()" class="group bg-primary/90 backdrop-blur-sm text-white px-8 py-3.5 rounded-2xl font-bold text-base border-2 border-white/30 hover:bg-primary hover:border-white/50 hover:scale-105 transition-all duration-300 ripple flex items-center gap-2">
+                                <i class="ri-flashlight-line group-hover:animate-pulse"></i>
+                                طلب سريع
+                            </button>
+                        </div>
+                        <div class="flex gap-6 md:gap-10 mt-10 animate-fade-in-up delay-400">
+                            <div class="text-center">
+                                <div class="text-2xl md:text-3xl font-bold text-secondary-light">٤.٩</div>
+                                <div class="text-xs text-white/70 mt-1">تقييم العملاء</div>
+                            </div>
+                            <div class="w-px bg-white/20"></div>
+                            <div class="text-center">
+                                <div class="text-2xl md:text-3xl font-bold text-secondary-light">٧٠+</div>
+                                <div class="text-xs text-white/70 mt-1">طبق مميز</div>
+                            </div>
+                            <div class="w-px bg-white/20"></div>
+                            <div class="text-center">
+                                <div class="text-2xl md:text-3xl font-bold text-secondary-light">٢٥ د</div>
+                                <div class="text-xs text-white/70 mt-1">توصيل سريع</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="mb-10 reveal">
+            <div class="px-4 md:px-8 max-w-7xl mx-auto">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <i class="ri-apps-line text-primary text-lg"></i>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold section-title">تصفح الأقسام</h2>
+                </div>
+            </div>
+            <div class="overflow-x-auto hide-scrollbar">
+                <div class="flex px-4 md:px-8 gap-4 pb-2 max-w-7xl mx-auto" id="categoriesList"></div>
+            </div>
+        </section>
+
+        <!-- Filter Pills -->
+        <section class="mb-6 px-4 md:px-8 max-w-7xl mx-auto reveal">
+            <div class="flex flex-wrap gap-2" id="filterPills"></div>
+        </section>
+
+        <!-- Featured Dishes -->
+        <section id="menuSection" class="mb-12 px-4 md:px-8 max-w-7xl mx-auto reveal">
+            <div class="flex justify-between items-end mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center">
+                        <i class="ri-star-smile-line text-secondary-dark text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold section-title">الأطباق المميزة</h2>
+                        <p class="text-sm text-muted dark:text-muted-dark mt-1">اختر من تشكيلتنا الفاخرة</p>
+                    </div>
+                </div>
+            </div>
+            <div id="dishesLoading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                <div class="bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm">
+                    <div class="h-48 shimmer"></div>
+                    <div class="p-4 space-y-3">
+                        <div class="h-4 shimmer rounded w-3/4"></div>
+                        <div class="h-3 shimmer rounded w-full"></div>
+                        <div class="flex justify-between pt-2">
+                            <div class="h-6 shimmer rounded w-16"></div>
+                            <div class="h-8 shimmer rounded w-24"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hidden sm:block">
+                    <div class="h-48 shimmer"></div>
+                    <div class="p-4 space-y-3">
+                        <div class="h-4 shimmer rounded w-3/4"></div>
+                        <div class="h-3 shimmer rounded w-full"></div>
+                        <div class="flex justify-between pt-2">
+                            <div class="h-6 shimmer rounded w-16"></div>
+                            <div class="h-8 shimmer rounded w-24"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hidden lg:block">
+                    <div class="h-48 shimmer"></div>
+                    <div class="p-4 space-y-3">
+                        <div class="h-4 shimmer rounded w-3/4"></div>
+                        <div class="h-3 shimmer rounded w-full"></div>
+                        <div class="flex justify-between pt-2">
+                            <div class="h-6 shimmer rounded w-16"></div>
+                            <div class="h-8 shimmer rounded w-24"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hidden xl:block">
+                    <div class="h-48 shimmer"></div>
+                    <div class="p-4 space-y-3">
+                        <div class="h-4 shimmer rounded w-3/4"></div>
+                        <div class="h-3 shimmer rounded w-full"></div>
+                        <div class="flex justify-between pt-2">
+                            <div class="h-6 shimmer rounded w-16"></div>
+                            <div class="h-8 shimmer rounded w-24"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="dishesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 hidden"></div>
+            <div id="noResults" class="hidden text-center py-16">
+                <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                    <i class="ri-search-line text-3xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-600 dark:text-gray-300 mb-2">لا توجد نتائج</h3>
+                <p class="text-sm text-gray-400">جرب البحث بكلمات مختلفة أو تصفح الأقسام</p>
+            </div>
+        </section>
+
+        <!-- Special Offers -->
+        <section id="offers" class="mb-12 px-4 md:px-8 max-w-7xl mx-auto reveal">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <i class="ri-percent-line text-primary text-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold section-title">عروض خاصة</h2>
+                    <p class="text-sm text-muted dark:text-muted-dark mt-1">لا تفوت الفرصة!</p>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-surface-dark rounded-3xl shadow-xl overflow-hidden">
+                <div class="grid md:grid-cols-2">
+                    <div class="relative h-64 md:h-auto overflow-hidden">
+                        <img src="./assets/imges/food/offer.jpg" alt="وجبة عائلية" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=800&h=600&fit=crop'">
+                        <div class="absolute top-4 left-4 offer-badge text-white text-sm font-bold py-2 px-4 rounded-full">خصم ٢٠٪</div>
+                        <div class="absolute bottom-4 right-4 bg-white/90 dark:bg-black/60 backdrop-blur-sm rounded-xl px-3 py-2 flex items-center gap-2">
+                            <i class="ri-time-line text-primary"></i>
+                            <span class="text-xs font-medium">ينتهي خلال:</span>
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col justify-center">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-accent/10 text-accent dark:text-accent-light text-xs font-bold px-3 py-1 rounded-full">الأكثر مبيعاً</span>
+                            <span class="bg-secondary/20 text-secondary-dark text-xs font-bold px-3 py-1 rounded-full">للعائلة</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3 font-reem">وجبة عائلية مميزة</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">وجبة كاملة تكفي ٤ أشخاص تشمل مشاوي متنوعة، أرز بسمتي، سلطات طازجة، مقبلات متنوعة، وخبز ساخن</p>
+                        <div class="flex gap-3 mb-6" id="countdown">
+                            <div class="text-center">
+                                <div class="countdown-digit w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg" id="cdHours">٠٤</div>
+                                <span class="text-xs text-muted mt-1 block">ساعة</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="countdown-digit w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg" id="cdMinutes">٣٢</div>
+                                <span class="text-xs text-muted mt-1 block">دقيقة</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="countdown-digit w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg" id="cdSeconds">١٥</div>
+                                <span class="text-xs text-muted mt-1 block">ثانية</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-gray-400 text-sm line-through block">٢٥٠ ر.س</span>
+                                <span class="text-primary text-2xl font-bold">٢٠٠ ر.س</span>
+                            </div>
+                            <button onclick="addToCart(999)" class="bg-primary text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all ripple flex items-center gap-2">
+                                <i class="ri-shopping-bag-3-line"></i>اطلب الآن
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Delivery Info -->
+        <section class="mb-12 px-4 md:px-8 max-w-7xl mx-auto reveal">
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                        <i class="ri-time-line text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">توصيل سريع</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">نوصل طلبك خلال ٣٠-٤٥ دقيقة فقط، طازج وساخن مباشرة لباب منزلك</p>
+                </div>
+                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-secondary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                        <i class="ri-vip-crown-line text-secondary-dark text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">جودة فاخرة</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">نختار أفضل المكونات الطازجة يومياً لنضمن لك تجربة طعام لا تُنسى</p>
+                </div>
+                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                        <i class="ri-map-pin-2-line text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">تغطية شاملة</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">نغطي جميع أحياء المدينة مع توصيل مجاني للطلبات فوق ١٠٠ ر.س</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Reviews -->
+        <section id="reviews" class="mb-12 reveal">
+            <div class="px-4 md:px-8 max-w-7xl mx-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                            <i class="ri-chat-heart-line text-yellow-600 text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-bold section-title">آراء العملاء</h2>
+                            <p class="text-sm text-muted dark:text-muted-dark mt-1">ما يقوله عملاؤنا عنا</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="scrollReviewsLeft" class="w-10 h-10 rounded-full bg-white dark:bg-surface-dark shadow-md flex items-center justify-center hover:bg-gray-50 transition">
+                            <i class="ri-arrow-right-s-line text-lg"></i>
+                        </button>
+                        <button id="scrollReviewsRight" class="w-10 h-10 rounded-full bg-white dark:bg-surface-dark shadow-md flex items-center justify-center hover:bg-gray-50 transition">
+                            <i class="ri-arrow-left-s-line text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto hide-scrollbar reviews-track" id="reviewsContainer">
+                <div class="flex px-4 md:px-8 gap-4 pb-4 max-w-7xl mx-auto" id="reviewsList"></div>
+            </div>
+        </section>
+
+        <!-- Working Hours -->
+        <section class="mb-12 px-4 md:px-8 max-w-7xl mx-auto reveal">
+            <div class="bg-white dark:bg-surface-dark rounded-3xl shadow-sm p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+                        <i class="ri-calendar-check-line text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold section-title">ساعات العمل</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                <i class="ri-sun-line text-primary"></i>
+                            </div>
+                            <div>
+                                <span class="font-medium block">السبت - الخميس</span>
+                                <span class="text-xs text-muted">أيام العمل</span>
+                            </div>
+                        </div>
+                        <span class="font-bold text-primary bg-primary/10 px-4 py-2 rounded-xl">١٠:٠٠ ص - ١١:٠٠ م</span>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-secondary/20 flex items-center justify-center">
+                                <i class="ri-moon-line text-secondary-dark"></i>
+                            </div>
+                            <div>
+                                <span class="font-medium block">الجمعة</span>
+                                <span class="text-xs text-muted">يوم العطلة</span>
+                            </div>
+                        </div>
+                        <span class="font-bold text-secondary-dark bg-secondary/20 px-4 py-2 rounded-xl">١:٠٠ م - ١١:٠٠ م</span>
+                    </div>
+                </div>
+                <div class="mt-6 p-4 bg-accent/5 dark:bg-accent/10 rounded-2xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                        <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div>
+                        <span class="font-bold text-sm">مفتوح الآن</span>
+                        <span class="text-xs text-muted block">نستقبل طلباتك على مدار ساعات العمل</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800 py-8 px-4 md:px-8 mb-16 md:mb-0">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="font-pacifico text-primary text-2xl mb-2">ليالي أبهى</div>
+            <p class="text-sm text-muted mb-4">مأكولات شرقية أصيلة بلمسة عصرية</p>
+            <div class="flex justify-center gap-4 mb-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition"><i class="ri-instagram-line"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition"><i class="ri-twitter-x-line"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-white transition"><i class="ri-whatsapp-line"></i></a>
+            </div>
+            <p class="text-xs text-gray-400">© ٢٠٢٤ ليالي أبهى. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Tab Bar -->
+    <nav class="fixed bottom-0 w-full bg-white/95 dark:bg-surface-dark/95 backdrop-blur-lg shadow-[0_-4px_20px_rgba(0,0,0,0.08)] z-50 md:hidden border-t border-gray-100 dark:border-gray-800">
+        <div class="grid grid-cols-4 max-w-md mx-auto">
+            <a href="#hero" class="tab-item active flex flex-col items-center py-3 cursor-pointer transition">
+                <div class="tab-icon w-10 h-10 rounded-xl flex items-center justify-center transition-all"><i class="ri-home-5-line text-lg"></i></div>
+                <span class="text-[11px] mt-0.5 font-medium">الرئيسية</span>
+            </a>
+            <a href="restaurant-menu.html" class="tab-item flex flex-col items-center py-3 cursor-pointer transition text-gray-400">
+                <div class="tab-icon w-10 h-10 rounded-xl flex items-center justify-center transition-all"><i class="ri-restaurant-line text-lg"></i></div>
+                <span class="text-[11px] mt-0.5 font-medium">القائمة</span>
+            </a>
+            <a href="orders.html" class="tab-item flex flex-col items-center py-3 cursor-pointer transition text-gray-400">
+                <div class="tab-icon w-10 h-10 rounded-xl flex items-center justify-center transition-all"><i class="ri-shopping-bag-line text-lg"></i></div>
+                <span class="text-[11px] mt-0.5 font-medium">طلباتي</span>
+            </a>
+            <a href="profile.html" class="tab-item flex flex-col items-center py-3 cursor-pointer transition text-gray-400">
+                <div class="tab-icon w-10 h-10 rounded-xl flex items-center justify-center transition-all"><i class="ri-user-line text-lg"></i></div>
+                <span class="text-[11px] mt-0.5 font-medium">حسابي</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Cart Drawer Overlay -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300"></div>
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="cart-drawer fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white dark:bg-surface-dark shadow-2xl z-[70] flex flex-col">
+        <div class="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-800">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center"><i class="ri-shopping-bag-3-line text-primary text-lg"></i></div>
+                <div>
+                    <h2 class="text-lg font-bold">سلة الطلبات</h2>
+                    <span class="text-xs text-muted" id="cartItemCount">٠ عناصر</span>
+                </div>
+            </div>
+            <button id="closeCart" class="w-10 h-10 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center transition" aria-label="إغلاق السلة"><i class="ri-close-line text-xl"></i></button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-5" id="cartBody">
+            <div id="cartEmpty" class="flex flex-col items-center justify-center h-full text-center py-10">
+                <div class="w-24 h-24 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4"><i class="ri-shopping-basket-2-line text-4xl text-gray-300"></i></div>
+                <h3 class="font-bold text-lg mb-2">السلة فارغة</h3>
+                <p class="text-sm text-muted mb-6">أضف بعض الأطباق اللذيذة إلى سلة طلباتك</p>
+                <button onclick="closeCartDrawer()" class="bg-primary text-white px-6 py-2.5 rounded-xl font-medium hover:bg-primary-dark transition ripple">تصفح القائمة</button>
+            </div>
+            <div id="cartItems" class="space-y-4 hidden"></div>
+        </div>
+        <div id="cartFooter" class="border-t border-gray-100 dark:border-gray-800 p-5 hidden">
+            <div class="space-y-3 mb-5">
+                <div class="flex justify-between text-sm"><span class="text-muted">المجموع</span><span class="font-medium" id="cartSubtotal">٠ ر.س</span></div>
+                <div class="flex justify-between text-sm"><span class="text-muted">رسوم التوصيل</span><span class="font-medium" id="cartDelivery">١٠ ر.س</span></div>
+                <div class="flex justify-between font-bold text-lg pt-3 border-t border-gray-100 dark:border-gray-800"><span>الإجمالي</span><span class="text-primary" id="cartTotal">٠ ر.س</span></div>
+            </div>
+            <button id="checkoutBtn" class="w-full bg-primary text-white py-4 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all ripple flex items-center justify-center gap-2">
+                <i class="ri-secure-payment-line"></i>إتمام الطلب
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast fixed top-24 left-1/2 z-[80] bg-white dark:bg-surface-dark shadow-2xl rounded-2xl p-4 flex items-center gap-3 min-w-[300px] border border-gray-100 dark:border-gray-700">
+        <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0"><i class="ri-check-line text-green-600 text-lg"></i></div>
+        <div>
+            <h4 class="font-bold text-sm" id="toastTitle">تمت الإضافة!</h4>
+            <p class="text-xs text-muted" id="toastMessage">أضيف العنصر إلى سلة طلباتك</p>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 md:bottom-8 left-4 md:left-8 w-12 h-12 bg-primary text-white rounded-2xl shadow-lg hover:shadow-xl hover:scale-110 transition-all z-50 flex items-center justify-center">
+        <i class="ri-arrow-up-line text-lg"></i>
+    </button>
+
+    <!-- ==================== DATA ARRAYS ==================== -->
+    <script>
+        // ═══════════════════════════════════════════════════
+        //  DATA: قائمة الأطباق الكاملة من المنيو
+        // ═══════════════════════════════════════════════════
+
+        const menuData = [
+            // ─── قسم المضغوط والأكلات الرئيسية ───
+            { id: 101, name: 'مضغوط دجاج (نص حبة)', category: 'main', price: 19, rating: 4.8, reviews: 245, prepTime: '٣٠ د', popular: true, image: './assets/imges/food/chicken-mandi-half.jpg', description: 'أرز بسمتي مع دجاج مشوي بنكهة المندي الأصيلة' },
+            { id: 102, name: 'مضغوط لحم (نفر واحد)', category: 'main', price: 70, rating: 4.9, reviews: 189, prepTime: '٤٠ د', popular: true, image: './assets/imges/food/meat-mandi-single.jpg', description: 'أرز بسمتي بلحم غنم طري بنكهة المندي التقليدية' },
+            { id: 103, name: 'مضغوط حاشي مع الرز', category: 'main', price: 50, rating: 4.7, reviews: 134, prepTime: '٤٥ د', image: './assets/imges/food/camel-mandi-rice.jpg', description: 'أرز بسمتي مع لحم حاشي مشوي على الطريقة التقليدية' },
+            { id: 104, name: 'رز بشاور (نفر واحد)', category: 'main', price: 7, rating: 4.5, reviews: 312, prepTime: '١٥ د', image: './assets/imges/food/rice-shawarma.jpg', description: 'أرز مع قطع دجاج مشوية بنكهة البشاور' },
+            { id: 105, name: 'دجاج زربيان (نص حبة)', category: 'main', price: 19, rating: 4.8, reviews: 198, prepTime: '٣٥ د', image: './assets/imges/food/chicken-zurbian-half.jpg', description: 'دجاج مع أرز زربيان بنكهة البهارات اليمنية' },
+            { id: 106, name: 'لحم برم', category: 'main', price: 50, rating: 4.6, reviews: 87, prepTime: '٤٠ د', image: './assets/imges/food/lamb-barma.jpg', description: 'لحم برم تقليدي مشوي مع البهارات الخاصة' },
+            { id: 107, name: 'عصيد يمني', category: 'main', price: 8, rating: 4.4, reviews: 156, prepTime: '٢٠ د', image: './assets/imges/food/aseeda-yemeni.jpg', description: 'عصيد يمني أصيل مع المرق والسمن البلدي' },
+            { id: 108, name: 'فحسة', category: 'main', price: 20, rating: 4.7, reviews: 143, prepTime: '٢٥ د', image: './assets/imges/food/fahsa.jpg', description: 'فحسة لحم تقليدية مع الخبز والمرق' },
+            { id: 109, name: 'سلطة عادي', category: 'main', price: 12, rating: 4.3, reviews: 98, prepTime: '١٠ د', image: './assets/imges/food/salad-regular.jpg', description: 'سلطة خضراء طازجة مع الخضروات الموسمية' },
+            { id: 110, name: 'سلطة تونة', category: 'main', price: 15, rating: 4.5, reviews: 112, prepTime: '١٠ د', image: './assets/imges/food/salad-tuna.jpg', description: 'سلطة تونة مع خضروات طازجة وصلصة خاصة' },
+            { id: 111, name: 'حلبة', category: 'main', price: 5, rating: 4.2, reviews: 76, prepTime: '٥ د', image: './assets/imges/food/hilba.jpg', description: 'حلبة يمنية أصيلة مع البهارات التقليدية' },
+
+            // ─── قسم المطبق ───
+            { id: 201, name: 'مطبق سادة خضار', category: 'mutabbaq', price: 5, rating: 4.6, reviews: 234, prepTime: '١٥ د', image: './assets/imges/food/mutabbaq-vegetable.jpg', description: 'مطبق مقلي محشو بالخضار الطازجة' },
+            { id: 202, name: 'مطبق جبن شيدر', category: 'mutabbaq', price: 6, rating: 4.7, reviews: 198, prepTime: '١٥ د', popular: true, image: './assets/imges/food/mutabbaq-cheddar.jpg', description: 'مطبق مقلي محشو بجبن الشيدر الذائب' },
+            { id: 203, name: 'مطبق جبن سائل', category: 'mutabbaq', price: 6, rating: 4.6, reviews: 167, prepTime: '١٥ د', image: './assets/imges/food/mutabbaq-cheese-liquid.jpg', description: 'مطبق مقلي محشو بالجبن السائل' },
+            { id: 204, name: 'مطبق جبن مالح', category: 'mutabbaq', price: 6, rating: 4.5, reviews: 145, prepTime: '١٥ د', image: './assets/imges/food/mutabbaq-salty-cheese.jpg', description: 'مطبق مقلي محشو بالجبن المالح' },
+            { id: 205, name: 'مطبق جبن شيدر مالح', category: 'mutabbaq', price: 6, rating: 4.6, reviews: 132, prepTime: '١٥ د', image: './assets/imges/food/mutabbaq-cheddar-salty.jpg', description: 'مطبق مقلي بجبن الشيدر المالح' },
+            { id: 206, name: 'مطبق ليالي أبهي (سبيشل)', category: 'mutabbaq', price: 8, rating: 4.9, reviews: 289, prepTime: '٢٠ د', popular: true, image: './assets/imges/food/mutabbaq-special.jpg', description: 'مطبق خاص بليالي أبهى مع مزيج من الجبن والخضار' },
+            { id: 207, name: 'مطبق نوتيلا', category: 'mutabbaq', price: 6, rating: 4.8, reviews: 312, prepTime: '١٥ د', popular: true, image: './assets/imges/food/mutabbaq-nutella.jpg', description: 'مطبق حلو محشو بنوتيلا' },
+            { id: 208, name: 'مطبق قشطة', category: 'mutabbaq', price: 6, rating: 4.7, reviews: 178, prepTime: '١٥ د', image: './assets/imges/food/mutabbaq-cream.jpg', description: 'مطبق حلو محشو بالقشطة الطازجة' },
+
+            // ─── قسم السلطات ───
+            { id: 301, name: 'سحاوق عادي', category: 'salads', price: 2, rating: 4.5, reviews: 198, prepTime: '٥ د', image: './assets/imges/food/sahawiq-regular.jpg', description: 'سحاوق يمني تقليدي حار' },
+            { id: 302, name: 'سحاوق بالجبن البلدي', category: 'salads', price: 7, rating: 4.7, reviews: 156, prepTime: '٥ د', image: './assets/imges/food/sahawiq-local-cheese.jpg', description: 'سحاوق مع الجبن البلدي الطازج' },
+            { id: 303, name: 'سحاوق بالجبن العادي', category: 'salads', price: 5, rating: 4.6, reviews: 134, prepTime: '٥ د', image: './assets/imges/food/sahawiq-cheese.jpg', description: 'سحاوق مع الجبن العادي' },
+
+            // ─── قسم الحلويات ───
+            { id: 401, name: 'ملوح دبل', category: 'desserts', price: 3, rating: 4.8, reviews: 267, prepTime: '١٠ د', popular: true, image: './assets/imges/food/malawah-double.jpg', description: 'ملوح مزدوج مقلي مع السمن' },
+            { id: 402, name: 'رطب بالعسل', category: 'desserts', price: 5, rating: 4.7, reviews: 189, prepTime: '٥ د', image: './assets/imges/food/dates-honey.jpg', description: 'رطب تمر طازج مع العسل' },
+            { id: 403, name: 'رطب سادة', category: 'desserts', price: 4, rating: 4.6, reviews: 145, prepTime: '٥ د', image: './assets/imges/food/dates-plain.jpg', description: 'رطب تمر طازج سادة' },
+
+            // ─── قسم الفطور ───
+            { id: 501, name: 'مقلقل لحم', category: 'breakfast', price: 15, rating: 4.8, reviews: 234, prepTime: '٢٠ د', popular: true, image: './assets/imges/food/maglgal-meat.jpg', description: 'لحم مقلقل مع البهارات والخضار' },
+            { id: 502, name: 'كبدة', category: 'breakfast', price: 15, rating: 4.7, reviews: 198, prepTime: '١٥ د', image: './assets/imges/food/liver.jpg', description: 'كبدة غنم مشوية مع البهارات' },
+            { id: 503, name: 'كبدة جبن', category: 'breakfast', price: 16, rating: 4.8, reviews: 167, prepTime: '١٥ د', image: './assets/imges/food/liver-cheese.jpg', description: 'كبدة غنم مع الجبن الذائب' },
+            { id: 504, name: 'دقة (لحم مفروم)', category: 'breakfast', price: 16, rating: 4.6, reviews: 145, prepTime: '١٥ د', image: './assets/imges/food/daqa-minced-meat.jpg', description: 'لحم مفروم مع البهارات والبندورة' },
+            { id: 505, name: 'كباب صنعاني', category: 'breakfast', price: 18, rating: 4.9, reviews: 289, prepTime: '٢٠ د', popular: true, image: './assets/imges/food/kebab-sanaani.jpg', description: 'كباب صنعاني أصيل مع البهارات الخاصة' },
+            { id: 506, name: 'عدس طاوة', category: 'breakfast', price: 6, rating: 4.4, reviews: 123, prepTime: '١٥ د', image: './assets/imges/food/lentils-pan.jpg', description: 'عدس مطبوخ على الطاوة مع البهارات' },
+            { id: 507, name: 'فول طاوة', category: 'breakfast', price: 6, rating: 4.5, reviews: 156, prepTime: '١٥ د', image: './assets/imges/food/foul-pan.jpg', description: 'فول مدمس مطبوخ على الطاوة' },
+            { id: 508, name: 'فاصوليا سادة', category: 'breakfast', price: 7, rating: 4.3, reviews: 98, prepTime: '١٥ د', image: './assets/imges/food/beans-plain.jpg', description: 'فاصوليا مطبوخة سادة' },
+            { id: 509, name: 'فاصوليا بالبيض', category: 'breakfast', price: 8, rating: 4.6, reviews: 134, prepTime: '١٥ د', image: './assets/imges/food/beans-egg.jpg', description: 'فاصوليا مطبوخة مع البيض' },
+            { id: 510, name: 'فاصوليا بالتونة', category: 'breakfast', price: 9, rating: 4.5, reviews: 112, prepTime: '١٥ د', image: './assets/imges/food/beans-tuna.jpg', description: 'فاصوليا مطبوخة مع التونة' },
+            { id: 511, name: 'بازلاء سادة', category: 'breakfast', price: 7, rating: 4.3, reviews: 87, prepTime: '١٥ د', image: './assets/imges/food/peas-plain.jpg', description: 'بازلاء مطبوخة سادة' },
+            { id: 512, name: 'بازلاء بالبيض', category: 'breakfast', price: 8, rating: 4.5, reviews: 98, prepTime: '١٥ د', image: './assets/imges/food/peas-egg.jpg', description: 'بازلاء مطبوخة مع البيض' },
+            { id: 513, name: 'بازلاء بالتونة', category: 'breakfast', price: 9, rating: 4.4, reviews: 76, prepTime: '١٥ د', image: './assets/imges/food/peas-tuna.jpg', description: 'بازلاء مطبوخة مع التونة' },
+            { id: 514, name: 'تونة سادة', category: 'breakfast', price: 8, rating: 4.5, reviews: 145, prepTime: '١٠ د', image: './assets/imges/food/tuna-plain.jpg', description: 'تونة مع البهارات والليمون' },
+            { id: 515, name: 'تونة بالبيض', category: 'breakfast', price: 9, rating: 4.6, reviews: 134, prepTime: '١٠ د', image: './assets/imges/food/tuna-egg.jpg', description: 'تونة مع البيض المسلوق' },
+            { id: 516, name: 'تونة بالشيبس', category: 'breakfast', price: 8, rating: 4.4, reviews: 167, prepTime: '١٠ د', image: './assets/imges/food/tuna-chips.jpg', description: 'تونة مع الشيبس المقرمش' },
+            { id: 517, name: 'تونة جبن', category: 'breakfast', price: 9, rating: 4.7, reviews: 156, prepTime: '١٠ د', image: './assets/imges/food/tuna-cheese.jpg', description: 'تونة مع الجبن الذائب' },
+            { id: 518, name: 'شكشوكة عدني', category: 'breakfast', price: 7, rating: 4.8, reviews: 234, prepTime: '١٥ د', popular: true, image: './assets/imges/food/shakshouka-adani.jpg', description: 'شكشوكة عدنية حارة مع البيض' },
+            { id: 519, name: 'شكشوكة عادي', category: 'breakfast', price: 7, rating: 4.6, reviews: 198, prepTime: '١٥ د', image: './assets/imges/food/shakshouka.jpg', description: 'شكشوكة تقليدية مع البيض والبندورة' },
+            { id: 520, name: 'شكشوكة جبن سائل', category: 'breakfast', price: 9, rating: 4.7, reviews: 178, prepTime: '١٥ د', image: './assets/imges/food/shakshouka-cheese.jpg', description: 'شكشوكة مع الجبن السائل' },
+            { id: 521, name: 'بيض فرن', category: 'breakfast', price: 8, rating: 4.5, reviews: 134, prepTime: '٢٠ د', image: './assets/imges/food/eggs-oven.jpg', description: 'بيض مخبوز في الفرن مع البهارات' },
+            { id: 522, name: 'بيض مقلي', category: 'breakfast', price: 7, rating: 4.4, reviews: 156, prepTime: '١٠ د', image: './assets/imges/food/fried-eggs.jpg', description: 'بيض مقلي مع السمن البلدي' },
+            { id: 523, name: 'بيض عيون', category: 'breakfast', price: 7, rating: 4.5, reviews: 145, prepTime: '١٠ د', image: './assets/imges/food/sunny-side-eggs.jpg', description: 'بيض عيون مع السمن والبهارات' },
+            { id: 524, name: 'لحسة', category: 'breakfast', price: 9, rating: 4.6, reviews: 112, prepTime: '١٥ د', image: './assets/imges/food/lahsa.jpg', description: 'لحسة يمنية تقليدية' },
+            { id: 525, name: 'شِبس بالبيض', category: 'breakfast', price: 8, rating: 4.4, reviews: 98, prepTime: '١٥ د', image: './assets/imges/food/chips-eggs.jpg', description: 'شيبس مقلي مع البيض' },
+            { id: 526, name: 'عقدة دجاج', category: 'breakfast', price: 13, rating: 4.7, reviews: 187, prepTime: '٢٠ د', image: './assets/imges/food/chicken-ogda.jpg', description: 'عقدة دجاج يمنية مع الخبز' },
+
+            // ─── قسم الإيدام ───
+            { id: 601, name: 'إيدام مشكل عادي', category: 'stew', price: 6, rating: 4.5, reviews: 134, prepTime: '٢٠ د', image: './assets/imges/food/stew-mixed.jpg', description: 'إيدام خضار مشكل مطبوخ' },
+            { id: 602, name: 'إيدام مشكل فرن', category: 'stew', price: 8, rating: 4.7, reviews: 156, prepTime: '٢٥ د', image: './assets/imges/food/stew-mixed-oven.jpg', description: 'إيدام خضار مشكل مخبوز في الفرن' },
+            { id: 603, name: 'إيدام سمك (صالونة)', category: 'stew', price: 0, rating: 4.8, reviews: 89, prepTime: '٣٠ د', image: './assets/imges/food/fish-stew.jpg', description: 'صالونة سمك يمنية تقليدية (السعر حسب السوق)' },
+            { id: 604, name: 'سمك ميفا', category: 'stew', price: 0, rating: 4.7, reviews: 76, prepTime: '٣٠ د', image: './assets/imges/food/fish-mifa.jpg', description: 'سمك ميفا مشوي (السعر حسب السوق)' },
+            { id: 605, name: 'إيدام حديدي', category: 'stew', price: 8, rating: 4.6, reviews: 112, prepTime: '٢٥ د', image: './assets/imges/food/stew-hadidi.jpg', description: 'إيدام حديدي تقليدي' },
+            { id: 606, name: 'مصقع', category: 'stew', price: 8, rating: 4.5, reviews: 98, prepTime: '٢٥ د', image: './assets/imges/food/moussaka.jpg', description: 'مصقع باذنجان مع اللحم المفروم' },
+            { id: 607, name: 'ملوخية', category: 'stew', price: 6, rating: 4.6, reviews: 145, prepTime: '٢٠ د', image: './assets/imges/food/molokhia.jpg', description: 'ملوخية مطبوخة مع الثوم والكزبرة' },
+
+            // ─── المشروبات ───
+            { id: 701, name: 'شاي سادة', category: 'drinks', price: 1, rating: 4.7, reviews: 456, prepTime: '٥ د', image: './assets/imges/food/tea.jpg', description: 'شاي أحمر يمني أصيل' },
+            { id: 702, name: 'شاي بالحليب', category: 'drinks', price: 2, rating: 4.8, reviews: 389, prepTime: '٥ د', popular: true, image: './assets/imges/food/milk-tea.jpg', description: 'شاي بالحليب على الطريقة اليمنية' },
+            { id: 703, name: 'شاي بالحليب عدني', category: 'drinks', price: 2, rating: 4.8, reviews: 312, prepTime: '٥ د', image: './assets/imges/food/adani-milk-tea.jpg', description: 'شاي عدني بالحليب والبهارات' },
+            { id: 704, name: 'بيبسي', category: 'drinks', price: 2.5, rating: 4.5, reviews: 234, prepTime: '٢ د', image: './assets/imges/food/pepsi.jpg', description: 'مشروب غازي بيبسي' },
+            { id: 705, name: 'حمضيات', category: 'drinks', price: 2.5, rating: 4.6, reviews: 198, prepTime: '٥ د', image: './assets/imges/food/citrus-juice.jpg', description: 'عصير حمضيات طازج' },
+            { id: 706, name: 'عصير برتقال', category: 'drinks', price: 2.5, rating: 4.7, reviews: 245, prepTime: '٥ د', image: './assets/imges/food/orange-juice.jpg', description: 'عصير برتقال طازج' },
+            { id: 707, name: 'ديو', category: 'drinks', price: 2.5, rating: 4.4, reviews: 167, prepTime: '٢ د', image: './assets/imges/food/mountain-dew.jpg', description: 'مشروب غازي ديو' },
+            { id: 708, name: 'ماء', category: 'drinks', price: 1, rating: 4.5, reviews: 312, prepTime: '١ د', image: './assets/imges/food/water.jpg', description: 'ماء معدني' },
+
+            // ─── قسم المعصوب والعريكة ───
+            { id: 801, name: 'معصوب عادي', category: 'masoob', price: 12, rating: 4.8, reviews: 289, prepTime: '١٥ د', popular: true, image: './assets/imges/food/masoob.jpg', description: 'معصوب تقليدي بالموز والعسل' },
+            { id: 802, name: 'معصوب ملكي', category: 'masoob', price: 14, rating: 4.9, reviews: 234, prepTime: '١٥ د', popular: true, image: './assets/imges/food/masoob-royal.jpg', description: 'معصوب ملكي مع المكسرات والعسل' },
+            { id: 803, name: 'معصوب ملكي دبل قشطة', category: 'masoob', price: 17, rating: 4.9, reviews: 198, prepTime: '١٥ د', image: './assets/imges/food/masoob-royal-double-cream.jpg', description: 'معصوب ملكي مزدوج مع القشطة' },
+            { id: 804, name: 'معصوب قشطة عسل', category: 'masoob', price: 14, rating: 4.8, reviews: 167, prepTime: '١٥ د', image: './assets/imges/food/masoob-cream-honey.jpg', description: 'معصوب مع القشطة والعسل' },
+            { id: 805, name: 'معصوب كورن فليكس', category: 'masoob', price: 17, rating: 4.7, reviews: 145, prepTime: '١٥ د', image: './assets/imges/food/masoob-cornflakes.jpg', description: 'معصوب مع كورن فليكس مقرمش' },
+            { id: 806, name: 'معصوب كاجو مشكل', category: 'masoob', price: 18, rating: 4.9, reviews: 134, prepTime: '١٥ د', image: './assets/imges/food/masoob-mixed-cashew.jpg', description: 'معصوب مع كاجو ومكسرات مشكلة' },
+            { id: 807, name: 'فتة حديدي سادة', category: 'masoob', price: 12, rating: 4.6, reviews: 112, prepTime: '١٥ د', image: './assets/imges/food/fatta-hadidi.jpg', description: 'فتة حديدي تقليدية' },
+            { id: 808, name: 'عريكة ملكي', category: 'masoob', price: 14, rating: 4.8, reviews: 198, prepTime: '٢٠ د', popular: true, image: './assets/imges/food/areeka-royal.jpg', description: 'عريكة ملكية بالعسل والسمن' },
+            { id: 809, name: 'عريكة دخن', category: 'masoob', price: 18, rating: 4.7, reviews: 134, prepTime: '٢٠ د', image: './assets/imges/food/areeka-dukhon.jpg', description: 'عريكة بدقيق الدخن' },
+            { id: 810, name: 'عريكة قشطة وعسل', category: 'masoob', price: 14, rating: 4.8, reviews: 156, prepTime: '٢٠ د', image: './assets/imges/food/areeka-cream-honey.jpg', description: 'عريكة مع القشطة والعسل' },
+            { id: 811, name: 'عريكة حجر كورن فليكس', category: 'masoob', price: 18, rating: 4.7, reviews: 98, prepTime: '٢٠ د', image: './assets/imges/food/areeka-stone-cornflakes.jpg', description: 'عريكة حجر مع كورن فليكس' },
+            { id: 812, name: 'عريكة مشكل حجر', category: 'masoob', price: 18, rating: 4.8, reviews: 112, prepTime: '٢٠ د', image: './assets/imges/food/areeka-stone-mix.jpg', description: 'عريكة حجر مشكلة بالمكسرات' },
+            { id: 813, name: 'فتة تمر', category: 'masoob', price: 10, rating: 4.6, reviews: 87, prepTime: '١٥ د', image: './assets/imges/food/fatta-dates.jpg', description: 'فتة تمر تقليدية' },
+        ];
+
+        // ═══════════════════════════════════════════════════
+        //  DATA: التصنيفات
+        // ═══════════════════════════════════════════════════
+        const categories = [
+            { id: 'all', name: 'الكل', icon: 'ri-apps-line', image: './assets/imges/food/home.jpg' },
+            { id: 'main', name: 'مضغوط ورئيسي', icon: 'ri-restaurant-line', image: './assets/imges/food/chicken-mandi-half.jpg' },
+            { id: 'mutabbaq', name: 'مطبق', icon: 'ri-bread-line', image: './assets/imges/food/mutabbaq-special.jpg' },
+            { id: 'salads', name: 'سلطات', icon: 'ri-bowl-line', image: './assets/imges/food/sahawiq-regular.jpg' },
+            { id: 'breakfast', name: 'فطور', icon: 'ri-sun-line', image: './assets/imges/food/shakshouka-adani.jpg' },
+            { id: 'stew', name: 'إيدام', icon: 'ri-cup-line', image: './assets/imges/food/stew-mixed.jpg' },
+            { id: 'masoob', name: 'معصوب وعريكة', icon: 'ri-cake-3-line', image: './assets/imges/food/masoob-royal.jpg' },
+            { id: 'desserts', name: 'حلويات', icon: 'ri-heart-3-line', image: './assets/imges/food/malawah-double.jpg' },
+            { id: 'drinks', name: 'مشروبات', icon: 'ri-drinks-line', image: './assets/imges/food/milk-tea.jpg' },
+        ];
+
+        // ═══════════════════════════════════════════════════
+        //  DATA: آراء العملاء
+        // ═══════════════════════════════════════════════════
+        const reviews = [
+            { id: 1, name: 'أحمد محمد', image: './assets/imges/food/customer1.jpg', rating: 5, text: 'أفضل مطعم يمني في المدينة! المضغوط رهيب والمعصوب لا يُضاهى. التوصيل سريع والطعام دائماً ساخن.' },
+            { id: 2, name: 'سارة عبدالله', image: './assets/imges/food/customer2.jpg', rating: 5, text: 'الشكشوكة العدنية من أفضل ما تذوقت! والمطبق بالجبن شيء خرافي. أنصح الجميع بتجربة ليالي أبهى.' },
+            { id: 3, name: 'خالد العمري', image: './assets/imges/food/customer3.jpg', rating: 4, text: 'طلبنا وجبة عائلية وكانت أكثر من رائعة! الكمية وفيرة والطعم لا يُضاهى. الأسعار مناسبة جداً.' },
+            { id: 4, name: 'نورة السالم', image: './assets/imges/food/customer1.jpg', rating: 5, text: 'العريكة الملكية رائعة جداً! والشاي العدني يذكرني بصنعاء. شكراً ليالي أبهى على الأصالة.' },
+            { id: 5, name: 'فهد الرشيد', image: './assets/imges/food/customer2.jpg', rating: 5, text: 'جودة ممتازة وأسعار مناسبة. التطبيق سهل الاستخدام والتوصيل دائماً في الموعد. مطعم موثوق ١٠٠٪.' },
+        ];
+
+        // ═══════════════════════════════════════════════════
+        //  DATA: العرض الخاص
+        // ═══════════════════════════════════════════════════
+        const specialOffer = { id: 999, name: 'وجبة عائلية مميزة', price: 200, category: 'offers', image: './assets/imges/food/offer.jpg', description: 'وجبة كاملة تكفي ٤ أشخاص' };
+
+        // ═══════════════════════════════════════════════════
+        //  STATE
+        // ═══════════════════════════════════════════════════
+        let cart = JSON.parse(localStorage.getItem('layaliAbhaCart')) || [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let darkMode = localStorage.getItem('layaliAbhaDarkMode') === 'true';
+
+        // ═══════════════════════════════════════════════════
+        //  INITIALIZATION
+        // ═══════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            initDarkMode();
+            renderCategories();
+            renderFilterPills();
+            renderDishes();
+            renderReviews();
+            updateCartUI();
+            initEventListeners();
+            initScrollEffects();
+            initCountdown();
+            initIntersectionObserver();
+            setTimeout(() => {
+                document.getElementById('dishesLoading').classList.add('hidden');
+                document.getElementById('dishesGrid').classList.remove('hidden');
+            }, 800);
+        });
+
+        // ═══════════════════════════════════════════════════
+        //  DARK MODE
+        // ═══════════════════════════════════════════════════
+        function initDarkMode() {
+            if (darkMode) document.documentElement.classList.add('dark');
+        }
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('layaliAbhaDarkMode', darkMode);
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  RENDER CATEGORIES (Horizontal Scroll)
+        // ═══════════════════════════════════════════════════
+        function renderCategories() {
+            const container = document.getElementById('categoriesList');
+            container.innerHTML = categories.slice(1).map(cat => `
+                <button onclick="setFilter('${cat.id}')" class="flex flex-col items-center min-w-[90px] group cursor-pointer">
+                    <div class="w-20 h-20 rounded-2xl overflow-hidden mb-2 shadow-md group-hover:shadow-xl transition-all group-hover:scale-105 relative">
+                        <img src="${cat.image}" alt="${cat.name}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=200&h=200&fit=crop'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="${cat.icon} text-white text-2xl drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm font-medium text-center group-hover:text-primary transition">${cat.name}</span>
+                </button>
+            `).join('');
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  RENDER FILTER PILLS
+        // ═══════════════════════════════════════════════════
+        function renderFilterPills() {
+            const container = document.getElementById('filterPills');
+            container.innerHTML = categories.map(cat => `
+                <button class="category-pill ${cat.id === 'all' ? 'active' : ''} px-5 py-2.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all hover:shadow-md flex items-center gap-1.5" data-filter="${cat.id}" onclick="setFilter('${cat.id}')">
+                    <i class="${cat.icon}"></i>${cat.name}
+                </button>
+            `).join('');
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  SET FILTER
+        // ═══════════════════════════════════════════════════
+        function setFilter(filterId) {
+            currentFilter = filterId;
+            document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+            const activePill = document.querySelector(`[data-filter="${filterId}"]`);
+            if (activePill) activePill.classList.add('active');
+            renderDishes();
+            document.getElementById('menuSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  RENDER DISHES
+        // ═══════════════════════════════════════════════════
+        function renderDishes() {
+            const container = document.getElementById('dishesGrid');
+            const noResults = document.getElementById('noResults');
+            let filtered = [...menuData];
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(d => d.category === currentFilter);
+            }
+
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filtered = filtered.filter(d => 
+                    d.name.toLowerCase().includes(q) || 
+                    d.description.toLowerCase().includes(q) ||
+                    d.category.toLowerCase().includes(q)
+                );
+            }
+
+            if (filtered.length === 0) {
+                container.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            container.innerHTML = filtered.map((dish, index) => `
+                <div class="dish-card bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-xl group" style="animation: fadeInUp 0.5s ease-out ${index * 0.05}s forwards; opacity: 0;">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="${dish.image}" alt="${dish.name}" class="dish-img w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        ${dish.popular ? `
+                        <div class="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
+                            <i class="ri-fire-line"></i> الأكثر طلباً
+                        </div>` : ''}
+                        <div class="absolute top-3 left-3 bg-white/90 dark:bg-black/70 backdrop-blur-sm text-xs font-bold px-2.5 py-1.5 rounded-full flex items-center gap-1">
+                            <i class="ri-time-line text-primary"></i> ${dish.prepTime}
+                        </div>
+                        <button onclick="addToCart(${dish.id})" class="absolute bottom-3 left-3 w-10 h-10 bg-white dark:bg-surface-dark rounded-full shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all transform translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 ripple">
+                            <i class="ri-add-line text-lg"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="font-bold text-base">${dish.name}</h3>
+                            <div class="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-lg flex-shrink-0">
+                                <i class="ri-star-fill text-yellow-400 text-xs"></i>
+                                <span class="text-xs font-bold text-yellow-600 dark:text-yellow-400">${dish.rating}</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs mb-3 line-clamp-2 leading-relaxed">${dish.description}</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                ${dish.price > 0 ? `<span class="text-primary font-bold text-lg">${dish.price} ر.س</span>` : `<span class="text-primary font-bold text-sm">حسب السوق</span>`}
+                            </div>
+                            <button onclick="addToCart(${dish.id})" class="bg-primary/10 dark:bg-primary/20 text-primary px-4 py-2 rounded-xl text-sm font-bold hover:bg-primary hover:text-white transition-all ripple flex items-center gap-1">
+                                <i class="ri-shopping-bag-3-line"></i>أضف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  RENDER REVIEWS
+        // ═══════════════════════════════════════════════════
+        function renderReviews() {
+            const container = document.getElementById('reviewsList');
+            container.innerHTML = reviews.map(review => `
+                <div class="review-card bg-white dark:bg-surface-dark rounded-2xl p-5 shadow-sm min-w-[300px] max-w-[340px] hover:shadow-lg transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden ring-2 ring-secondary/30">
+                            <img src="${review.image}" alt="${review.name}" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(review.name)}&background=D4A574&color=fff'">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-sm">${review.name}</h3>
+                            <div class="flex gap-0.5">
+                                ${Array(5).fill(0).map((_, i) => `<i class="ri-star-${i < review.rating ? 'fill' : 'line'} text-yellow-400 text-xs"></i>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">${review.text}</p>
+                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center gap-2">
+                        <i class="ri-verified-badge-line text-primary text-sm"></i>
+                        <span class="text-xs text-muted">عميل موثق</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  CART FUNCTIONS
+        // ═══════════════════════════════════════════════════
+        function addToCart(dishId) {
+            const dish = dishId === 999 ? specialOffer : menuData.find(d => d.id === dishId);
+            if (!dish) return;
+            if (dish.price === 0) {
+                showToast('تنبيه', 'السعر يُحدد حسب السوق، يرجى التواصل مع المطعم');
+                return;
+            }
+
+            const existing = cart.find(item => item.id === dishId);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ id: dish.id, name: dish.name, price: dish.price, image: dish.image, quantity: 1 });
+            }
+
+            saveCart();
+            updateCartUI();
+            showToast('تمت الإضافة!', `أُضيف "${dish.name}" إلى السلة`);
+            animateBadge();
+        }
+
+        function removeFromCart(dishId) {
+            cart = cart.filter(item => item.id !== dishId);
+            saveCart();
+            updateCartUI();
+        }
+
+        function updateQuantity(dishId, delta) {
+            const item = cart.find(i => i.id === dishId);
+            if (!item) return;
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                removeFromCart(dishId);
+                return;
+            }
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('layaliAbhaCart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = toArabicNumbers(totalItems);
+
+            const cartItems = document.getElementById('cartItems');
+            const cartEmpty = document.getElementById('cartEmpty');
+            const cartFooter = document.getElementById('cartFooter');
+            const cartItemCount = document.getElementById('cartItemCount');
+
+            if (cart.length === 0) {
+                cartItems.classList.add('hidden');
+                cartEmpty.classList.remove('hidden');
+                cartFooter.classList.add('hidden');
+                cartItemCount.textContent = '٠ عناصر';
+                return;
+            }
+
+            cartItems.classList.remove('hidden');
+            cartEmpty.classList.add('hidden');
+            cartFooter.classList.remove('hidden');
+            cartItemCount.textContent = `${toArabicNumbers(totalItems)} ${totalItems === 1 ? 'عنصر' : 'عناصر'}`;
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="flex gap-3 bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-3">
+                    <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=100&h=100&fit=crop'">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-sm truncate">${item.name}</h4>
+                        <p class="text-primary font-bold text-sm mt-1">${item.price} ر.س</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="qty-btn w-7 h-7 rounded-lg bg-white dark:bg-gray-700 shadow-sm flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition">
+                                    <i class="ri-subtract-line text-xs"></i>
+                                </button>
+                                <span class="font-bold text-sm w-6 text-center">${toArabicNumbers(item.quantity)}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="qty-btn w-7 h-7 rounded-lg bg-white dark:bg-gray-700 shadow-sm flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition">
+                                    <i class="ri-add-line text-xs"></i>
+                                </button>
+                            </div>
+                            <button onclick="removeFromCart(${item.id})" class="w-8 h-8 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+                                <i class="ri-delete-bin-line text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const delivery = subtotal >= 100 ? 0 : 10;
+            const total = subtotal + delivery;
+
+            document.getElementById('cartSubtotal').textContent = `${toArabicNumbers(subtotal)} ر.س`;
+            document.getElementById('cartDelivery').textContent = delivery === 0 ? 'مجاني' : `${toArabicNumbers(delivery)} ر.س`;
+            document.getElementById('cartDelivery').className = delivery === 0 ? 'font-medium text-green-600' : 'font-medium';
+            document.getElementById('cartTotal').textContent = `${toArabicNumbers(total)} ر.س`;
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  CART DRAWER
+        // ═══════════════════════════════════════════════════
+        function openCartDrawer() {
+            document.getElementById('cartOverlay').classList.remove('hidden');
+            setTimeout(() => document.getElementById('cartOverlay').classList.remove('opacity-0'), 10);
+            document.getElementById('cartDrawer').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCartDrawer() {
+            document.getElementById('cartOverlay').classList.add('opacity-0');
+            document.getElementById('cartDrawer').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('cartOverlay').classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  TOAST
+        // ═══════════════════════════════════════════════════
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  BADGE ANIMATION
+        // ═══════════════════════════════════════════════════
+        function animateBadge() {
+            const badge = document.getElementById('cartBadge');
+            badge.classList.add('badge-pop');
+            setTimeout(() => badge.classList.remove('badge-pop'), 300);
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  SEARCH WITH DEBOUNCE
+        // ═══════════════════════════════════════════════════
+        let searchTimeout;
+        function handleSearch(e) {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim();
+            const clearBtn = document.getElementById('clearSearch');
+            const suggestions = document.getElementById('searchSuggestions');
+
+            if (query) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+                suggestions.classList.remove('open');
+            }
+
+            searchTimeout = setTimeout(() => {
+                searchQuery = query;
+                renderDishes();
+                if (query) showSearchSuggestions(query);
+            }, 300);
+        }
+
+        function showSearchSuggestions(query) {
+            const container = document.getElementById('suggestionsList');
+            const suggestions = menuData.filter(d => d.name.includes(query) || d.description.includes(query)).slice(0, 5);
+
+            if (suggestions.length === 0) {
+                container.innerHTML = '<div class="px-4 py-3 text-sm text-gray-400 text-center">لا توجد اقتراحات</div>';
+            } else {
+                container.innerHTML = suggestions.map(d => `
+                    <button onclick="selectSuggestion('${d.name}')" class="w-full text-right px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center gap-3">
+                        <img src="${d.image}" class="w-10 h-10 rounded-lg object-cover" onerror="this.style.display='none'">
+                        <div>
+                            <div class="text-sm font-medium">${d.name}</div>
+                            <div class="text-xs text-muted">${d.price > 0 ? d.price + ' ر.س' : 'حسب السوق'}</div>
+                        </div>
+                    </button>
+                `).join('');
+            }
+            document.getElementById('searchSuggestions').classList.add('open');
+        }
+
+        function selectSuggestion(name) {
+            document.getElementById('searchInput').value = name;
+            document.getElementById('searchSuggestions').classList.remove('open');
+            searchQuery = name;
+            renderDishes();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  COUNTDOWN
+        // ═══════════════════════════════════════════════════
+        function initCountdown() {
+            let hours = 4, minutes = 32, seconds = 15;
+            setInterval(() => {
+                seconds--;
+                if (seconds < 0) { seconds = 59; minutes--; }
+                if (minutes < 0) { minutes = 59; hours--; }
+                if (hours < 0) { hours = 23; minutes = 59; seconds = 59; }
+                document.getElementById('cdHours').textContent = toArabicNumbers(String(hours).padStart(2, '0'));
+                document.getElementById('cdMinutes').textContent = toArabicNumbers(String(minutes).padStart(2, '0'));
+                document.getElementById('cdSeconds').textContent = toArabicNumbers(String(seconds).padStart(2, '0'));
+            }, 1000);
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  SCROLL EFFECTS
+        // ═══════════════════════════════════════════════════
+        function initScrollEffects() {
+            const header = document.getElementById('mainHeader');
+            const backToTop = document.getElementById('backToTop');
+            const progressBar = document.getElementById('progressBar');
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollY / docHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+                if (scrollY > 50) header.classList.add('shadow-md');
+                else header.classList.remove('shadow-md');
+                if (scrollY > 500) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
+            });
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  INTERSECTION OBSERVER
+        // ═══════════════════════════════════════════════════
+        function initIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  EVENT LISTENERS
+        // ═══════════════════════════════════════════════════
+        function initEventListeners() {
+            document.getElementById('cartButton').addEventListener('click', openCartDrawer);
+            document.getElementById('closeCart').addEventListener('click', closeCartDrawer);
+            document.getElementById('cartOverlay').addEventListener('click', closeCartDrawer);
+            document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            document.getElementById('clearSearch').addEventListener('click', () => {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('clearSearch').classList.add('hidden');
+                document.getElementById('searchSuggestions').classList.remove('open');
+                searchQuery = '';
+                renderDishes();
+            });
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#searchInput') && !e.target.closest('#searchSuggestions')) {
+                    document.getElementById('searchSuggestions').classList.remove('open');
+                }
+            });
+            document.getElementById('scrollReviewsRight').addEventListener('click', () => {
+                document.getElementById('reviewsContainer').scrollBy({ left: 320, behavior: 'smooth' });
+            });
+            document.getElementById('scrollReviewsLeft').addEventListener('click', () => {
+                document.getElementById('reviewsContainer').scrollBy({ left: -320, behavior: 'smooth' });
+            });
+            document.getElementById('checkoutBtn').addEventListener('click', () => {
+                if (cart.length > 0) {
+                    showToast('جاري التنفيذ', 'سيتم تحويلك لإتمام الطلب...');
+                    setTimeout(() => window.location.href = 'orders.html', 1500);
+                }
+            });
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  UTILITY
+        // ═══════════════════════════════════════════════════
+        function toArabicNumbers(num) {
+            return String(num).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        }
+
+        function scrollToQuickOrder() {
+            document.getElementById('menuSection').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => showToast('طلب سريع', 'اختر أطباقك المفضلة وأضفها للسلة'), 800);
+        }
+    </script>
+</body>
+</html>

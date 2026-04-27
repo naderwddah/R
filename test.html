@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ليالي أبهى | تجربة فاخرة</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #f8f8f8;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(192,57,43,0.6));
+    }
+    .card-hover {
+      transition: 0.3s ease;
+    }
+    .card-hover:active {
+      transform: scale(0.97);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    }
+
+    /* شريط التمرير الأفقي للأقسام */
+    .scroll-x {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .scroll-x::-webkit-scrollbar {
+      display: none;
+    }
+    .category-card {
+      scroll-snap-align: start;
+      transition: all 0.2s ease;
+    }
+    .category-card:active {
+      transform: scale(0.95);
+    }
+    .category-card.active {
+      border: 2px solid #C0392B;
+      background-color: #FEF2F2;
+      transform: scale(1.03);
+      box-shadow: 0 8px 16px rgba(192,57,43,0.15);
+    }
+    .category-card.active .cat-img-wrap {
+      box-shadow: 0 4px 12px rgba(192,57,43,0.3);
+    }
+    .dish-img {
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      width: 100%;
+    }
+    .add-to-cart-btn {
+      min-height: 36px;
+      min-width: 64px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .add-to-cart-btn:active {
+      transform: scale(0.92);
+      background-color: #991B1B;
+    }
+    /* Toast */
+    #toast {
+      transition: opacity 0.3s, bottom 0.3s;
+    }
+    /* Drawer السلة */
+    .cart-drawer {
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+    /* تنسيق أزرار الكمية */
+    .qty-btn {
+      transition: all 0.2s;
+    }
+    .qty-btn:active {
+      transform: scale(0.9);
+    }
+    /* حظر التمرير خلف الدراور */
+    body.no-scroll {
+      overflow: hidden;
+    }
+    @media (max-width: 400px) {
+      .cat-img-wrap {
+        width: 56px !important;
+        height: 56px !important;
+      }
+      .category-card {
+        min-width: 68px;
+      }
+      .category-card span {
+        font-size: 10px;
+      }
+      #dishesGrid {
+        gap: 0.5rem !important;
+      }
+    }
+    @media (max-width: 360px) {
+      #dishesGrid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    @media (min-width: 401px) and (max-width: 640px) {
+      .cat-img-wrap {
+        width: 64px !important;
+        height: 64px !important;
+      }
+      .category-card {
+        min-width: 76px;
+      }
+    }
+  </style>
+
+</head>
+<body class="pb-24">
+
+<!-- HEADER -->
+<header class="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50">
+  <div class="flex justify-between items-center px-4 py-3">
+    <button class="text-xl p-1 -mr-1 active:scale-90 transition-transform"><i class="ri-menu-line text-gray-700"></i></button>
+    <h1 class="text-red-600 font-bold text-lg tracking-wide">ليالي أبهى</h1>
+    <div class="relative cursor-pointer p-1 -ml-1 active:scale-90 transition-transform" id="cartIcon">
+      <i class="ri-shopping-cart-2-line text-xl text-gray-700"></i>
+      <span id="cartBadge" class="absolute -top-1 -left-1 bg-red-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-md">0</span>
+    </div>
+  </div>
+  <div class="px-4 pb-3">
+    <div class="relative">
+      <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+      <input type="text" id="searchInput" placeholder="ابحث عن طبقك المفضل..." 
+        class="w-full bg-gray-100 rounded-xl pr-10 pl-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-red-200 focus:bg-white transition-all" />
+    </div>
+  </div>
+</header>
+
+<main class="pt-32 px-3 sm:px-4 space-y-5">
+
+  <!-- HERO -->
+  <section class="relative rounded-2xl overflow-hidden h-56 sm:h-64 shadow-lg">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop" 
+      class="w-full h-full object-cover" alt="hero" />
+    <div class="hero-overlay absolute inset-0 flex flex-col justify-center items-center text-white text-center p-4">
+      <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs mb-3 border border-white/10">مأكولات شرقية أصيلة</span>
+      <h2 class="text-xl sm:text-2xl font-bold mb-1">أهلاً بك في ليالي أبهى</h2>
+      <p class="text-xs sm:text-sm mb-4 opacity-90">تجربة طعام تجمع بين الأصالة واللمسة العصرية</p>
+      <div class="flex gap-2 sm:gap-3">
+        <button class="bg-white text-red-600 px-4 sm:px-5 py-2 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform">تصفح القائمة</button>
+        <button class="bg-red-600 text-white px-4 sm:px-5 py-2 rounded-xl font-bold text-sm flex items-center gap-1 shadow-lg active:scale-95 transition-transform">
+          <i class="ri-flashlight-line"></i> طلب سريع
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- إحصائيات -->
+  <div class="flex justify-around bg-white rounded-2xl py-3.5 shadow-sm border border-gray-100">
+    <div class="text-center px-2"><div class="font-bold text-red-600 text-lg">4.9</div><div class="text-[11px] text-gray-500">التقييم</div></div>
+    <div class="w-px bg-gray-200"></div>
+    <div class="text-center px-2"><div class="font-bold text-red-600 text-lg">70+</div><div class="text-[11px] text-gray-500">طبق</div></div>
+    <div class="w-px bg-gray-200"></div>
+    <div class="text-center px-2"><div class="font-bold text-red-600 text-lg">25د</div><div class="text-[11px] text-gray-500">توصيل</div></div>
+  </div>
+
+  <!-- الأقسام -->
+  <section>
+    <div class="flex justify-between items-center mb-3 px-1">
+      <h3 class="font-bold text-base sm:text-lg">الأقسام</h3>
+      <span class="text-[11px] text-gray-400" id="catCount">9 أقسام</span>
+    </div>
+    <div class="scroll-x flex gap-2 sm:gap-3 pb-2 -mr-3 pr-3 -ml-3 pl-3" id="categoriesContainer"></div>
+  </section>
+
+  <!-- الأطباق -->
+  <section>
+    <div class="flex justify-between items-center mb-3 px-1">
+      <h3 class="font-bold text-base sm:text-lg" id="sectionTitle">جميع الأطباق</h3>
+      <span class="text-[11px] text-gray-400" id="dishCount">12 طبق</span>
+    </div>
+    <div id="dishesGrid" class="grid grid-cols-2 gap-3 sm:gap-4"></div>
+    <div id="noResults" class="hidden text-center py-10 text-gray-400">
+      <i class="ri-search-line text-4xl mb-2 block text-gray-300"></i>
+      <p class="text-sm">لا توجد أطباق مطابقة للبحث</p>
+    </div>
+  </section>
+</main>
+
+<!-- شريط سفلي -->
+<nav class="fixed bottom-0 w-full bg-white border-t border-gray-100 grid grid-cols-4 text-center py-2 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-40">
+  <div class="text-red-600 flex flex-col items-center gap-0.5 py-1 cursor-pointer active:scale-95 transition-transform">
+    <i class="ri-home-5-fill text-xl"></i><span class="text-[10px] font-medium">الرئيسية</span>
+  </div>
+  <div class="flex flex-col items-center gap-0.5 py-1 text-gray-400 cursor-pointer active:scale-95 transition-transform">
+    <i class="ri-restaurant-line text-xl"></i><span class="text-[10px] font-medium">القائمة</span>
+  </div>
+  <div class="flex flex-col items-center gap-0.5 py-1 text-gray-400 cursor-pointer active:scale-95 transition-transform">
+    <i class="ri-shopping-bag-line text-xl"></i><span class="text-[10px] font-medium">طلباتي</span>
+  </div>
+  <div class="flex flex-col items-center gap-0.5 py-1 text-gray-400 cursor-pointer active:scale-95 transition-transform">
+    <i class="ri-user-line text-xl"></i><span class="text-[10px] font-medium">حسابي</span>
+  </div>
+</nav>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-24 right-1/2 bg-gray-800 text-white px-5 py-2.5 rounded-xl text-sm opacity-0 z-50 pointer-events-none shadow-xl flex items-center gap-2 min-w-[140px] justify-center">
+  <i class="ri-check-line text-green-400"></i><span id="toastText">تمت الإضافة</span>
+</div>
+
+<!-- ========== دراور السلة (Drawer) ========== -->
+<div id="cartOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300"></div>
+<div id="cartDrawer" class="cart-drawer fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white dark:bg-white shadow-2xl z-[70] flex flex-col">
+  <div class="flex items-center justify-between p-5 border-b border-gray-100">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center"><i class="ri-shopping-bag-3-line text-red-500 text-lg"></i></div>
+      <div><h2 class="text-lg font-bold">سلة الطلبات</h2><span class="text-xs text-gray-500" id="cartItemCount">٠ عناصر</span></div>
+    </div>
+    <button id="closeCart" class="w-10 h-10 rounded-xl hover:bg-gray-100 flex items-center justify-center transition"><i class="ri-close-line text-xl"></i></button>
+  </div>
+  <div class="flex-1 overflow-y-auto p-5" id="cartBody">
+    <div id="cartEmpty" class="flex flex-col items-center justify-center h-full text-center py-10">
+      <div class="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-4"><i class="ri-shopping-basket-2-line text-4xl text-gray-300"></i></div>
+      <h3 class="font-bold text-lg mb-2">السلة فارغة</h3>
+      <p class="text-sm text-gray-500 mb-6">أضف بعض الأطباق اللذيذة إلى سلة طلباتك</p>
+      <button onclick="closeCartDrawer()" class="bg-red-500 text-white px-6 py-2.5 rounded-xl font-medium hover:bg-red-600 transition">تصفح القائمة</button>
+    </div>
+    <div id="cartItems" class="space-y-4 hidden"></div>
+  </div>
+  <div id="cartFooter" class="border-t border-gray-100 p-5 hidden">
+    <div class="space-y-3 mb-5">
+      <div class="flex justify-between text-sm"><span class="text-gray-500">المجموع</span><span class="font-medium" id="cartSubtotal">٠ ر.س</span></div>
+      <div class="flex justify-between text-sm"><span class="text-gray-500">رسوم التوصيل</span><span class="font-medium" id="cartDelivery">١٠ ر.س</span></div>
+      <div class="flex justify-between font-bold text-lg pt-3 border-t border-gray-100"><span>الإجمالي</span><span class="text-red-500" id="cartTotal">٠ ر.س</span></div>
+    </div>
+    <button id="checkoutBtn" class="w-full bg-red-500 text-white py-4 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 active:scale-95">إتمام الطلب</button>
+  </div>
+</div>
+
+<script>
+  // ========== البيانات ==========
+  const categories = [
+    { id: 'all', name: 'الكل', icon: 'ri-apps-line', image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=120&h=120&fit=crop' },
+    { id: 'main', name: 'مضغوط ورئيسي', icon: 'ri-restaurant-line', image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=120&h=120&fit=crop' },
+    { id: 'mutabbaq', name: 'مطبق', icon: 'ri-bread-line', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=120&h=120&fit=crop' },
+    { id: 'salads', name: 'سلطات', icon: 'ri-bowl-line', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=120&h=120&fit=crop' },
+    { id: 'breakfast', name: 'فطور', icon: 'ri-sun-line', image: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=120&h=120&fit=crop' },
+    { id: 'stew', name: 'إيدام', icon: 'ri-cup-line', image: 'https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=120&h=120&fit=crop' },
+    { id: 'masoob', name: 'معصوب وعريكة', icon: 'ri-cake-3-line', image: 'https://images.unsplash.com/photo-1584450150055-1c9f75027ed3?w=120&h=120&fit=crop' },
+    { id: 'desserts', name: 'حلويات', icon: 'ri-heart-3-line', image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=120&h=120&fit=crop' },
+    { id: 'drinks', name: 'مشروبات', icon: 'ri-drinks-line', image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=120&h=120&fit=crop' }
+  ];
+
+  const menuData = [
+    { id: 1, name: 'مضغوط دجاج', category: 'main', price: 29, image: 'https://images.unsplash.com/photo-1604908176997-4317c5f1a1f1?w=400&h=300&fit=crop', description: 'دجاج مندي بالأرز البسمتي' },
+    { id: 2, name: 'مشاوي مشكلة', category: 'main', price: 75, image: 'https://images.unsplash.com/photo-1603898037225-f6b5f0a9d0b2?w=400&h=300&fit=crop', description: 'لحم ودجاج مشوي' },
+    { id: 3, name: 'مطبق جبن', category: 'mutabbaq', price: 12, image: 'https://images.unsplash.com/photo-1603064753991-3912c7b6a9b7?w=400&h=300&fit=crop', description: 'مطبق محشي جبنة شيدر' },
+    { id: 4, name: 'مطبق سادة', category: 'mutabbaq', price: 8, image: 'https://images.unsplash.com/photo-1603064753991-3912c7b6a9b7?w=400&h=300&fit=crop', description: 'مطبق خضار' },
+    { id: 5, name: 'حمص بالطحينة', category: 'salads', price: 12, image: 'https://images.unsplash.com/photo-1577805947697-89e18249d767?w=400&h=300&fit=crop', description: 'حمص طازج مع زيت الزيتون' },
+    { id: 6, name: 'سلطة عربي', category: 'salads', price: 10, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop', description: 'خيار، طماطم، بقدونس' },
+    { id: 7, name: 'شكشوكة', category: 'breakfast', price: 18, image: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&h=300&fit=crop', description: 'بيض بصلصة الطماطم الحارة' },
+    { id: 8, name: 'فول مدمس', category: 'breakfast', price: 8, image: 'https://images.unsplash.com/photo-1577805947697-89e18249d767?w=400&h=300&fit=crop', description: 'فول بالزيت والكمون' },
+    { id: 9, name: 'عدسية', category: 'stew', price: 15, image: 'https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=400&h=300&fit=crop', description: 'شوربة عدس غنية' },
+    { id: 10, name: 'معصوب', category: 'masoob', price: 14, image: 'https://images.unsplash.com/photo-1584450150055-1c9f75027ed3?w=400&h=300&fit=crop', description: 'خبز بالموز والعسل' },
+    { id: 11, name: 'كنافة', category: 'desserts', price: 20, image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop', description: 'كنافة نابلسية' },
+    { id: 12, name: 'شاي عدني', category: 'drinks', price: 5, image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop', description: 'شاي بالحليب والهيل' }
+  ];
+
+  // ========== الحالة ==========
+  let currentCategory = 'all';
+  let searchQuery = '';
+  let cart = [];
+
+  // DOM عناصر
+  const categoriesContainer = document.getElementById('categoriesContainer');
+  const dishesGrid = document.getElementById('dishesGrid');
+  const noResultsDiv = document.getElementById('noResults');
+  const sectionTitle = document.getElementById('sectionTitle');
+  const dishCount = document.getElementById('dishCount');
+  const searchInput = document.getElementById('searchInput');
+  const cartBadge = document.getElementById('cartBadge');
+  const toastEl = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+
+  // عناصر السلة (drawer)
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartDrawer = document.getElementById('cartDrawer');
+  const closeCartBtn = document.getElementById('closeCart');
+  const cartItemsDiv = document.getElementById('cartItems');
+  const cartEmptyDiv = document.getElementById('cartEmpty');
+  const cartFooterDiv = document.getElementById('cartFooter');
+  const cartItemCountSpan = document.getElementById('cartItemCount');
+  const cartSubtotalSpan = document.getElementById('cartSubtotal');
+  const cartDeliverySpan = document.getElementById('cartDelivery');
+  const cartTotalSpan = document.getElementById('cartTotal');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+
+  // ========== دوال السلة الأساسية ==========
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function loadCart() {
+    const saved = localStorage.getItem('cart');
+    if (saved) {
+      cart = JSON.parse(saved);
+    }
+    updateCartBadge();
+    renderCartDrawer(); // تحديث محتوى الدراور
+  }
+
+  function updateCartBadge() {
+    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartBadge.textContent = total;
+    if (total > 0) {
+      cartBadge.style.transform = 'scale(1.1)';
+      setTimeout(() => { cartBadge.style.transform = 'scale(1)'; }, 200);
+    }
+  }
+
+  function showToast(message) {
+    toastText.textContent = message;
+    toastEl.classList.remove('opacity-0');
+    toastEl.classList.add('opacity-100');
+    setTimeout(() => {
+      toastEl.classList.remove('opacity-100');
+      toastEl.classList.add('opacity-0');
+    }, 2000);
+  }
+
+  function addToCart(dish) {
+    const existing = cart.find(item => item.id === dish.id);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ ...dish, quantity: 1 });
+    }
+    saveCart();
+    updateCartBadge();
+    renderCartDrawer();
+    showToast(`تمت إضافة ${dish.name}`);
+  }
+
+  function updateQuantity(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.quantity += delta;
+    if (item.quantity <= 0) {
+      cart = cart.filter(i => i.id !== id);
+    }
+    saveCart();
+    updateCartBadge();
+    renderCartDrawer();
+    // إذا كانت السلة مفتوحة، نعيد العرض فوراً
+    renderCartDrawer();
+  }
+
+  function removeItem(id) {
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    updateCartBadge();
+    renderCartDrawer();
+  }
+
+  // ========== عرض السلة (Drawer) ==========
+  function renderCartDrawer() {
+    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+    if (cart.length === 0) {
+      cartItemsDiv.classList.add('hidden');
+      cartEmptyDiv.classList.remove('hidden');
+      cartFooterDiv.classList.add('hidden');
+      cartItemCountSpan.textContent = '٠ عناصر';
+      return;
+    }
+    cartItemsDiv.classList.remove('hidden');
+    cartEmptyDiv.classList.add('hidden');
+    cartFooterDiv.classList.remove('hidden');
+    cartItemCountSpan.textContent = `${totalItems} ${totalItems === 1 ? 'عنصر' : 'عناصر'}`;
+
+    cartItemsDiv.innerHTML = cart.map(item => `
+      <div class="flex gap-3 bg-gray-50 rounded-2xl p-3">
+        <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+          <img src="${item.image}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=100&h=100&fit=crop'">
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-bold text-sm truncate">${item.name}</h4>
+          <p class="text-red-500 font-bold text-sm mt-1">${item.price} ر.س</p>
+          <div class="flex items-center justify-between mt-2">
+            <div class="flex items-center gap-2">
+              <button onclick="updateQuantity(${item.id}, -1)" class="qty-btn w-7 h-7 rounded-lg bg-white shadow-sm flex items-center justify-center text-gray-600 hover:bg-red-500 hover:text-white transition">
+                <i class="ri-subtract-line text-xs"></i>
+              </button>
+              <span class="font-bold text-sm w-6 text-center">${item.quantity}</span>
+              <button onclick="updateQuantity(${item.id}, 1)" class="qty-btn w-7 h-7 rounded-lg bg-white shadow-sm flex items-center justify-center text-gray-600 hover:bg-red-500 hover:text-white transition">
+                <i class="ri-add-line text-xs"></i>
+              </button>
+            </div>
+            <button onclick="removeItem(${item.id})" class="w-8 h-8 rounded-lg hover:bg-red-50 flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+              <i class="ri-delete-bin-line text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    const delivery = subtotal >= 100 ? 0 : 10;
+    const total = subtotal + delivery;
+    cartSubtotalSpan.textContent = `${subtotal} ر.س`;
+    cartDeliverySpan.textContent = delivery === 0 ? 'مجاني' : `${delivery} ر.س`;
+    cartTotalSpan.textContent = `${total} ر.س`;
+  }
+
+  // فتح وإغلاق الدراور
+  function openCartDrawer() {
+    cartOverlay.classList.remove('hidden');
+    setTimeout(() => cartOverlay.classList.remove('opacity-0'), 10);
+    cartDrawer.classList.add('open');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeCartDrawer() {
+    cartOverlay.classList.add('opacity-0');
+    cartDrawer.classList.remove('open');
+    setTimeout(() => {
+      cartOverlay.classList.add('hidden');
+      document.body.classList.remove('no-scroll');
+    }, 300);
+  }
+
+  // ========== عرض الأقسام ==========
+  function renderCategories() {
+    categoriesContainer.innerHTML = categories.map(cat => `
+      <div class="category-card text-center min-w-[72px] cursor-pointer rounded-xl p-1.5 ${currentCategory === cat.id ? 'active' : ''}" data-cat="${cat.id}">
+        <div class="cat-img-wrap w-[64px] h-[64px] rounded-xl overflow-hidden mx-auto mb-1.5 shadow-md relative">
+          <img src="${cat.image}" class="w-full h-full object-cover" loading="lazy" alt="${cat.name}"
+            onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(cat.name)}&background=C0392B&color=fff&bold=true&size=128'">
+          <div class="absolute inset-0 bg-black/25 flex items-center justify-center">
+            <i class="${cat.icon} text-white text-lg drop-shadow-md"></i>
+          </div>
+        </div>
+        <span class="text-[11px] font-medium block leading-tight text-gray-700">${cat.name}</span>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.category-card').forEach(el => {
+      el.addEventListener('click', () => {
+        const catId = el.getAttribute('data-cat');
+        if (catId) {
+          currentCategory = catId;
+          renderCategories();
+          filterAndRenderDishes();
+          const selectedCat = categories.find(c => c.id === catId);
+          sectionTitle.textContent = selectedCat ? selectedCat.name : 'جميع الأطباق';
+        }
+      });
+    });
+  }
+
+  // ========== عرض الأطباق ==========
+  function filterAndRenderDishes() {
+    let filtered = menuData.filter(dish => {
+      const matchCategory = currentCategory === 'all' || dish.category === currentCategory;
+      const matchSearch = dish.name.includes(searchQuery) || dish.description.includes(searchQuery);
+      return matchCategory && matchSearch;
+    });
+    dishCount.textContent = `${filtered.length} طبق${filtered.length !== 1 ? 'ًا' : ''}`;
+    if (filtered.length === 0) {
+      dishesGrid.classList.add('hidden');
+      noResultsDiv.classList.remove('hidden');
+      return;
+    }
+    dishesGrid.classList.remove('hidden');
+    noResultsDiv.classList.add('hidden');
+
+    dishesGrid.innerHTML = filtered.map(dish => `
+      <div class="bg-white rounded-2xl overflow-hidden card-hover shadow-sm border border-gray-100">
+        <div class="relative">
+          <img src="${dish.image}" class="dish-img" loading="lazy" alt="${dish.name}"
+            onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop'">
+          <div class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-lg text-[10px] font-bold text-red-600 shadow-sm">${dish.price} ر.س</div>
+        </div>
+        <div class="p-2.5 sm:p-3">
+          <h4 class="font-bold text-sm mb-0.5 text-gray-800">${dish.name}</h4>
+          <p class="text-[11px] text-gray-500 mb-2.5 leading-relaxed">${dish.description}</p>
+          <button class="add-to-cart-btn w-full bg-red-600 text-white text-xs py-2 rounded-lg shadow-sm active:shadow-md"
+            data-id="${dish.id}" data-name="${dish.name}" data-price="${dish.price}" data-img="${dish.image}">
+            <i class="ri-add-line ml-1"></i> إضافة للسلة
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const name = btn.getAttribute('data-name');
+        const price = parseFloat(btn.getAttribute('data-price'));
+        const image = btn.getAttribute('data-img');
+        addToCart({ id, name, price, image });
+      });
+    });
+  }
+
+  // ========== البحث ==========
+  searchInput.addEventListener('input', (e) => {
+    searchQuery = e.target.value.trim();
+    filterAndRenderDishes();
+  });
+
+  // ========== أحداث السلة ==========
+  document.getElementById('cartIcon').addEventListener('click', openCartDrawer);
+  closeCartBtn.addEventListener('click', closeCartDrawer);
+  cartOverlay.addEventListener('click', closeCartDrawer);
+  checkoutBtn.addEventListener('click', () => {
+    if (cart.length === 0) {
+      showToast('السلة فارغة');
+      return;
+    }
+    showToast('جاري التوجيه لإتمام الطلب...');
+    setTimeout(() => alert('تم إرسال الطلب (تجريبي)'), 1500);
+  });
+
+  // ========== بدء التشغيل ==========
+  loadCart();
+  renderCategories();
+  filterAndRenderDishes();
+
+  // جعل الدوال عالمية للاستخدام من onclick في الـ HTML
+  window.updateQuantity = updateQuantity;
+  window.removeItem = removeItem;
+  window.closeCartDrawer = closeCartDrawer;
+</script>
+</body>
+</html>
