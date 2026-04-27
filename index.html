@@ -404,7 +404,7 @@
 
         const subtotal = getCartTotal();
         let deliveryFee = 0;
-        if (orderType === "delivery") deliveryFee = 10;
+        if (orderType === "delivery") deliveryFee = 0;
         const finalTotal = subtotal + deliveryFee;
 
         if (footer) {
