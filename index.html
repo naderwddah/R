@@ -213,7 +213,6 @@
 
 <div id="toastContainer" class="toast-container"></div>
 
-<!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-b border-[var(--color-border)]">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -233,7 +232,6 @@
 </header>
 
 <main class="max-w-6xl mx-auto px-4 pt-[72px]">
-    <!-- Hero Banner -->
     <section class="mt-4 mb-8">
         <div class="relative rounded-2xl overflow-hidden shadow-lg h-[200px] md:h-[260px]">
             <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=500&fit=crop" alt="مطعم ليالي أبهى" class="w-full h-full object-cover">
@@ -250,33 +248,28 @@
         </div>
     </section>
 
-    <!-- Search -->
     <section class="mb-5 relative">
         <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن طبق... مضغوط، معصوب، مطبق، شاي...">
         <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
         <button id="searchClear" class="absolute left-14 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gray-200 hidden items-center justify-center" onclick="App.clearSearch()"><i class="fas fa-times text-[10px]"></i></button>
     </section>
 
-    <!-- Categories -->
     <section class="mb-6">
         <div class="flex items-center gap-2 mb-3"><i class="fas fa-th-large text-[var(--color-primary)]"></i><h3 class="font-bold">الأقسام الرئيسية</h3></div>
         <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" id="categoriesContainer"></div>
     </section>
 
-    <!-- Dishes Grid -->
     <div id="dishesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     <div id="noResults" class="hidden empty-state"><i class="fas fa-search text-4xl text-gray-300 mb-3"></i><p>لا توجد أطباق</p></div>
     <div id="loadingIndicator" class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> جاري تحميل القائمة...</div>
 </main>
 
-<!-- Bottom Navigation Mobile -->
 <div class="bottom-nav">
     <button onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-home"></i><span>الرئيسية</span></button>
     <button onclick="document.getElementById('categoriesContainer').scrollIntoView({behavior:'smooth'})"><i class="fas fa-utensils"></i><span>القائمة</span></button>
     <button onclick="App.toggleCart()"><i class="fas fa-receipt"></i><span>طلباتي</span><span id="navCartBadge" class="cart-badge hidden" style="position:relative;top:-12px;right:-8px;">0</span></button>
 </div>
 
-<!-- Cart Drawer -->
 <div id="cartDrawer" class="cart-drawer">
     <div class="modal-overlay" onclick="App.toggleCart()"></div>
     <div class="cart-drawer__panel">
@@ -289,7 +282,6 @@
     </div>
 </div>
 
-<!-- Success Modal -->
 <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
     <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center">
         <div class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4"><i class="fas fa-check text-3xl text-green-600"></i></div>
@@ -301,22 +293,19 @@
 </div>
 
 <script>
-    // ================ تحميل البيانات من ملف JSON ================
-    // يمكنك تعديل مسار ملف JSON حسب هيكل موقعك (مثلاً: "data/menu.json" أو "menu.json")
+    // --------------------- إعدادات ---------------------
     const DATA_URL = "menu.json";  
-
-    let categoriesData = [];      // سيتم ملؤها من JSON
-    let dishesData = [];          // سيتم ملؤها من JSON
+    let categoriesData = [];
+    let dishesData = [];
     let appInitialized = false;
 
-    // State
     let cart = [];
-    let currentCategory = "all";  // سيتم ضبطها بعد تحميل البيانات
+    let currentCategory = "all";
     let searchTerm = "";
-    let orderType = "pickup";
+    let orderType = "pickup";      // pickup or delivery
     let deliveryLocation = "";
 
-    // دوال مساعدة
+    // --------------------- وظائف مساعدة ---------------------
     function showToast(msg, type = "success") {
         const container = document.getElementById("toastContainer");
         const toast = document.createElement("div");
@@ -337,12 +326,12 @@
         return filtered;
     }
 
-    // دوال العرض (ستُستدعى بعد تحميل البيانات)
+    // دوال العرض
     function renderCategories() {
         const container = document.getElementById("categoriesContainer");
         if (!container) return;
-        const allDishesCount = dishesData.length;
-        container.innerHTML = `<button class="category-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="App.filterByCategory('all')"><i class="fas fa-th-large"></i> الكل (${allDishesCount})</button>` +
+        const allCount = dishesData.length;
+        container.innerHTML = `<button class="category-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="App.filterByCategory('all')"><i class="fas fa-th-large"></i> الكل (${allCount})</button>` +
             categoriesData.map(cat => `<button class="category-btn ${currentCategory === cat.id ? 'active' : ''}" onclick="App.filterByCategory('${cat.id}')"><i class="fas ${cat.icon}"></i> ${cat.name} (${cat.count})</button>`).join('');
     }
 
@@ -469,35 +458,27 @@
         }
     }
 
-    // ================ تهيئة التطبيق بعد تحميل JSON ================
+    // --------------------- تحميل البيانات ---------------------
     async function loadMenuData() {
         const loadingDiv = document.getElementById("loadingIndicator");
         try {
             const response = await fetch(DATA_URL);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
-            // نتوقع أن الملف JSON يحتوي على key "categories" و "dishes"
-            if (!data.categories || !data.dishes) throw new Error("JSON يجب أن يحتوي على خاصيتي categories و dishes");
+            if (!data.categories || !data.dishes) throw new Error("الملف يجب أن يحتوي على categories و dishes");
             categoriesData = data.categories;
             dishesData = data.dishes;
-
-            // تحديث عدد الأطباق في كل فئة (count)
             categoriesData.forEach(cat => {
                 cat.count = dishesData.filter(d => d.category === cat.id).length;
             });
-
-            // إخفاء مؤشر التحميل
             if (loadingDiv) loadingDiv.classList.add("hidden");
             appInitialized = true;
-
-            // بدء التطبيق
             currentCategory = "all";
             renderCategories();
             renderDishes();
             renderCartUI();
             updateBadges();
 
-            // إضافة مستمع البحث
             const searchInput = document.getElementById("searchInput");
             if (searchInput) {
                 searchInput.addEventListener("input", (e) => {
@@ -510,13 +491,66 @@
         } catch (err) {
             console.error("خطأ في تحميل menu.json:", err);
             if (loadingDiv) {
-                loadingDiv.innerHTML = `<div class="text-center text-red-600"><i class="fas fa-exclamation-triangle"></i> فشل تحميل القائمة: ${err.message}<br>تأكد من وجود ملف menu.json في نفس المجلد واتباع البنية الصحيحة.</div>`;
+                loadingDiv.innerHTML = `<div class="text-center text-red-600"><i class="fas fa-exclamation-triangle"></i> فشل تحميل القائمة: ${err.message}<br>تأكد من وجود ملف menu.json في نفس المجلد.</div>`;
             }
-            showToast("حدث خطأ في تحميل البيانات. راجع وحدة التحكم", "error");
+            showToast("حدث خطأ في تحميل البيانات", "error");
         }
     }
 
-    // ================ كائن التطبيق (يتم ربطه بعد تحميل البيانات) ================
+    // --------------------- رسالة واتساب مرتبة ---------------------
+    function buildWhatsAppMessage() {
+        const subtotal = getCartTotal();
+        const deliveryFee = orderType === "delivery" ? 10 : 0;
+        const total = subtotal + deliveryFee;
+        const comments = document.getElementById("orderComments")?.value.trim() || "";
+        const orderNumber = Date.now().toString().slice(-6);
+        const currentDate = new Date().toLocaleDateString('ar-SA', { year:'numeric', month:'long', day:'numeric' });
+
+        let message = `🍽️ *ليالي أبهى - طلب جديد* 🍽️\n`;
+        message += `📋 رقم الطلب: #${orderNumber}\n`;
+        message += `📅 التاريخ: ${currentDate}\n`;
+        message += `⏰ الوقت: ${new Date().toLocaleTimeString('ar-SA')}\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+
+        // تفاصيل الأطباق
+        message += `📌 *قائمة الأطباق:*\n`;
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            message += `• ${item.name}  × ${item.quantity}  =  ${itemTotal} ر.س\n`;
+        });
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+
+        // الفاتورة
+        message += `💰 *المجموع الفرعي:* ${subtotal} ر.س\n`;
+        if (deliveryFee > 0) {
+            message += `🚚 *رسوم التوصيل:* ${deliveryFee} ر.س\n`;
+        }
+        message += `✨ *الإجمالي الكلي:* ${total} ر.س\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+
+        // طريقة الاستلام والموقع
+        if (orderType === "pickup") {
+            message += `🏪 *نوع الطلب:* استلام من الفرع\n`;
+            message += `📍 *الموقع:* يمكنك الاستلام من مقر المطعم\n`;
+        } else {
+            message += `🚚 *نوع الطلب:* توصيل للمنزل\n`;
+            message += `📍 *عنوان التوصيل:* ${deliveryLocation || "لم يتم إدخال عنوان مفصل"}\n`;
+        }
+
+        // ملاحظات
+        if (comments) {
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `📝 *ملاحظات العميل:*\n${comments}\n`;
+        }
+
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `✅ *شكراً لاختياركم ليالي أبهى*\n`;
+        message += `📞 للاستفسار: 966500000000`;
+
+        return encodeURIComponent(message);
+    }
+
+    // --------------------- كائن التطبيق ---------------------
     const App = {
         filterByCategory(catId) {
             if (!appInitialized) return;
@@ -572,53 +606,56 @@
         shareLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(pos => {
-                    const url = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                    const url = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
                     deliveryLocation = url;
                     const inp = document.getElementById("deliveryAddressInput");
                     if (inp) inp.value = url;
-                    showToast("تم تحديث الموقع", "success");
-                }, () => showToast("فشل تحديد الموقع", "error"));
+                    showToast("تم تحديث الموقع بنجاح", "success");
+                }, () => showToast("فشل تحديد الموقع، اكتب العنوان يدوياً", "error"));
             } else showToast("المتصفح لا يدعم مشاركة الموقع", "error");
         },
         checkout() {
             if (!appInitialized) return;
-            if (cart.length === 0) return;
-            if (orderType === "delivery" && !deliveryLocation) { showToast("⚠️ يرجى إدخال المنطقة أو مشاركة الموقع", "error"); return; }
+            if (cart.length === 0) { showToast("السلة فارغة, أضف أطباقاً أولاً", "error"); return; }
+            if (orderType === "delivery" && !deliveryLocation) { showToast("⚠️ يرجى إدخال العنوان أو مشاركة الموقع", "error"); return; }
+
             const subtotal = getCartTotal();
             const deliveryFee = orderType === "delivery" ? 10 : 0;
             const total = subtotal + deliveryFee;
             const comments = document.getElementById("orderComments")?.value || "";
-            const locationText = orderType === "pickup" ? "استلام من الفرع" : deliveryLocation;
-            let invoice = `<div class="border-b pb-2 mb-2">#${Date.now().toString().slice(-6)}</div>`;
-            cart.forEach(i => invoice += `<div class="flex justify-between">${i.name} × ${i.quantity} <span>${formatPrice(i.price * i.quantity)}</span></div>`);
-            if (deliveryFee > 0) invoice += `<div class="flex justify-between">رسوم التوصيل <span>${formatPrice(deliveryFee)}</span></div>`;
-            invoice += `<div class="flex justify-between font-bold mt-2 pt-2 border-t"><span>الإجمالي</span><span>${formatPrice(total)}</span></div>`;
-            if (orderType === "delivery") invoice += `<div class="text-xs mt-2 break-words">📍 الموقع: ${locationText}</div>`;
-            if (comments) invoice += `<div class="text-xs mt-1">📝 ${comments}</div>`;
-            document.getElementById("invoicePreview").innerHTML = invoice;
+
+            // معاينة الفاتورة داخل المودال
+            let invoiceHtml = `<div class="border-b pb-2 mb-2 text-center font-bold">فاتورة الطلب #${Date.now().toString().slice(-6)}</div>`;
+            cart.forEach(i => invoiceHtml += `<div class="flex justify-between text-sm">${i.name} × ${i.quantity} <span>${formatPrice(i.price * i.quantity)}</span></div>`);
+            if (deliveryFee > 0) invoiceHtml += `<div class="flex justify-between text-sm">رسوم التوصيل <span>${formatPrice(deliveryFee)}</span></div>`;
+            invoiceHtml += `<div class="flex justify-between font-bold mt-2 pt-2 border-t"><span>الإجمالي</span><span>${formatPrice(total)}</span></div>`;
+            if (orderType === "delivery") invoiceHtml += `<div class="text-xs mt-2 break-words">📍 العنوان: ${deliveryLocation}</div>`;
+            if (comments) invoiceHtml += `<div class="text-xs mt-1">📝 ملاحظات: ${comments}</div>`;
+            document.getElementById("invoicePreview").innerHTML = invoiceHtml;
+
             document.getElementById("successModal").style.display = "flex";
-            this.toggleCart();
-            
-            let msg = `🍽️ *طلب جديد من ليالي أبهى*%0A📋 #${Date.now().toString().slice(-6)}%0A📅 ${new Date().toLocaleDateString('ar-SA')}%0A%0A`;
-            cart.forEach(i => msg += `- ${i.name} × ${i.quantity} = ${formatPrice(i.price * i.quantity)}%0A`);
-            msg += `%0A💰 *الإجمالي: ${formatPrice(total)}*%0A`;
-            msg += `🚚 ${orderType === "pickup" ? "استلام من الفرع" : "توصيل للمنزل"}%0A`;
-            if (orderType === "delivery") msg += `📍 العنوان: ${deliveryLocation}%0A`;
-            if (comments) msg += `📝 ملاحظات: ${comments}%0A`;
-            
+            this.toggleCart(); // إغلاق السلة
+
+            const encodedMsg = buildWhatsAppMessage();
             setTimeout(() => {
-                window.open(`https://wa.me/967737127316?text=${msg}`, "_blank");
+                window.open(`https://wa.me/967737127316?text=${encodedMsg}`, "_blank");
+                // إعادة تعيين السلة
                 cart = [];
                 orderType = "pickup";
                 deliveryLocation = "";
-                renderDishes(); renderCartUI(); updateBadges();
+                const commentsEl = document.getElementById("orderComments");
+                if (commentsEl) commentsEl.value = "";
+                renderDishes();
+                renderCartUI();
+                updateBadges();
             }, 1500);
         },
-        closeSuccessModal() { document.getElementById("successModal").style.display = "none"; }
+        closeSuccessModal() {
+            document.getElementById("successModal").style.display = "none";
+        }
     };
 
     window.App = App;
-    // بدء تحميل البيانات
     loadMenuData();
 </script>
 </body>
